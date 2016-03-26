@@ -14,7 +14,7 @@ RUN apt-get install -y ros-indigo-moveit-core ros-indigo-moveit-ros-planning \
     ros-indigo-joint-state-controller ros-indigo-joint-trajectory-controller \ 
     ros-indigo-ros-controllers ros-indigo-ur-description
 
-# install eclipse and eclipse-cdt IDE
+# install eclipse IDE with eclipse-cdt
 RUN apt-get install  -y eclipse eclipse-cdt \
     && rm -rf /var/lib/apt/lists/*
 
