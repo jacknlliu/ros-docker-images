@@ -20,5 +20,5 @@ RUN echo "deb http://ppa.launchpad.net/oibaf/graphics-drivers/ubuntu trusty main
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 957D2708A03A4626 \
     && apt-get update
 
-RUN apt-get install xserver-xorg-video-intel \ 
+RUN apt-get install -y  xserver-xorg-video-intel \ 
     && rm -rf /var/lib/apt/lists/*
