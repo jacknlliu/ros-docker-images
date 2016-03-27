@@ -4,7 +4,7 @@ MAINTAINER Jack Liu jackliu.lab@gmail.com
 # update gazebo2.2 to gazebo2.2.5
 RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu trusty main" > /etc/apt/sources.list.d/gazebo-latest.list
 
-RUN wget http://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
+RUN curl http://packages.osrfoundation.org/gazebo.key |apt-key add -
 
 RUN apt-get update && apt-get upgrade -y gazebo2 \
     && rm -rf /var/lib/apt/lists/*
