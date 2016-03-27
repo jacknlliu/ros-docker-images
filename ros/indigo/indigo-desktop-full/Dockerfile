@@ -13,8 +13,8 @@ RUN apt-get update && apt-get upgrade -y gazebo2 \
 RUN apt-get update && apt-get upgrade -y
 
 # download gazebo models
-RUN mkdir -p ~/.gazebo/models && cd ~/.gazebo/models
-RUN hg clone https://bitbucket.org/osrf/gazebo_models && cd -
+RUN hg clone https://bitbucket.org/osrf/gazebo_models
+RUN mkdir -p ~/.gazebo/ && ln -s `pwd`/gazebo_models ~/.gazebo/models
 
 # install related components
 RUN apt-get install -y ros-indigo-moveit-core ros-indigo-moveit-ros-planning \
