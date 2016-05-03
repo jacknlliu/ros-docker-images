@@ -17,10 +17,8 @@ RUN hg clone https://bitbucket.org/osrf/gazebo_models
 RUN mkdir -p ~/.gazebo/ && ln -s `pwd`/gazebo_models ~/.gazebo/models
 
 # install related components
-RUN apt-get install -y ros-indigo-moveit-core ros-indigo-moveit-ros-planning \
+RUN apt-get install -y ros-indigo-moveit-full \
     ros-indigo-gazebo-ros-control ros-indigo-effort-controllers \
-    ros-indigo-joint-state-controller ros-indigo-joint-trajectory-controller \ 
+    ros-indigo-joint-state-controller ros-indigo-joint-trajectory-controller \
     ros-indigo-ros-controllers ros-indigo-ur-description \
     && rm -rf /var/lib/apt/lists/*
-
-
