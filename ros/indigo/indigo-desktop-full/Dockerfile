@@ -12,6 +12,9 @@ RUN apt-get update && apt-get upgrade -y gazebo2 \
 # using upgrade (not recommend)
 RUN apt-get update && apt-get upgrade -y
 
+# install essential tools
+RUN apt-get install -y  vim  git
+
 # download gazebo models
 RUN hg clone https://bitbucket.org/osrf/gazebo_models
 RUN mkdir -p ~/.gazebo/ && ln -s `pwd`/gazebo_models ~/.gazebo/models
