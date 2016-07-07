@@ -25,19 +25,3 @@ RUN apt-get install -y ros-indigo-moveit-full \
     ros-indigo-joint-state-controller ros-indigo-joint-trajectory-controller \
     ros-indigo-ros-controllers ros-indigo-ur-description \
     && rm -rf /var/lib/apt/lists/*
-
-
-# add "ros" user
-RUN adduser --gecos "ROS User" --disabled-password ros
-RUN usermod -a -G dialout ros
-
-RUN echo "ros ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/99_aptget
-RUN chmod 0440 /etc/sudoers.d/99_aptget && chown root:root /etc/sudoers.d/99_aptget
-
-# "ros" user
-USER ros
-
-# set environment
-RUN echo "export QT_X11_NO_MITSHM=1" >> /home/ros/.bashrc
-RUN echo "export HOME=/home/ros" >> /home/ros/.bashrc
-RUN echo "source /opt/ros/indigo/setup.bash" >> /home/ros/.bashrc
