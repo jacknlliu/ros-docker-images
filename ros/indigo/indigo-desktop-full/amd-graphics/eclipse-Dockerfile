@@ -8,3 +8,5 @@ RUN apt-get update && apt-get upgrade -y
 RUN apt-get install  -y gdb
 RUN apt-get install  -y eclipse eclipse-cdt \
     && rm -rf /var/lib/apt/lists/*
+    
+RUN echo "source /opt/ros/indigo/setup.bash" >> "/root/.bashrc"
