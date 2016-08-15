@@ -4,6 +4,7 @@
 * as default login user
 * mkdir  workspace in the ros's home
 * add ros environment variable to .bashrc of user ros
+* download gazebo model in ros home directory 
 
 ### some packages to install
 * vim
