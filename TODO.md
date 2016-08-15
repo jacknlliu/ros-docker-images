@@ -12,7 +12,7 @@
 
 ### install ROS Qt creator plugin & uninstall eclipse
 * [ROS qt plugin](https://github.com/ros-industrial/ros_qtc_plugin)
-* install qt & remove eclipse
+* install qt & remove eclipse, copy qt config files to /home/ros/
 * install terminix (run use this replace terminal/bash)
 
 ### Reference
