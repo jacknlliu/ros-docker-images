@@ -46,10 +46,11 @@ RUN apt-get install -y qt5-default qtcreator
 # download gazebo models
 RUN mkdir -p /ros-data/gazebo && cd /ros-data/gazebo
 RUN hg clone https://bitbucket.org/osrf/gazebo_models
-RUN chmod -R a+rwx /ros-data/gazebo && cd -
+RUN chmod -R 777 /ros-data/gazebo && cd -
 
 # link to root user home directory
 RUN mkdir -p /root/.gazebo/ && ln -s /ros-data/gazebo/gazebo_models /root/.gazebo/models
+RUN chmod -R 777 /ros-data/gazebo/gazebo_models
 
 # install ros related components
 RUN apt-get install -y ros-indigo-moveit-full \
