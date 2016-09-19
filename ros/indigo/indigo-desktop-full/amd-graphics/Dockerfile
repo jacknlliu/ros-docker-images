@@ -44,13 +44,13 @@ RUN apt-get install -y mesa-common-dev libglu1-mesa-dev libfontconfig1
 RUN apt-get install -y qt5-default qtcreator
 
 # download gazebo models
-RUN mkdir -p /ros-data/gazebo && cd /ros-data/gazebo
+RUN mkdir -p /data/gazebo && cd /data/gazebo/
 RUN hg clone https://bitbucket.org/osrf/gazebo_models
-RUN chmod -R 777 /ros-data/gazebo && cd -
+RUN chmod -R 777 /data/gazebo && cd -
 
 # link to root user home directory
-RUN mkdir -p /root/.gazebo/ && ln -s /ros-data/gazebo/gazebo_models /root/.gazebo/models
-RUN chmod -R 777 /ros-data/gazebo/gazebo_models
+RUN mkdir -p /root/.gazebo/ && ln -s /data/gazebo/gazebo_models /root/.gazebo/models
+RUN chmod -R 777 /data/gazebo/gazebo_models
 
 # install ros related components
 RUN apt-get install -y ros-indigo-moveit-full \
@@ -95,9 +95,9 @@ RUN echo "export HOME=/home/ros" >> /home/ros/.bashrc
 RUN echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
 
 # link to root user home directory
-RUN mkdir -p /home/ros/.gazebo/ && sudo ln -s /ros-data/gazebo/gazebo_models /home/ros/.gazebo/models
+RUN mkdir -p /home/ros/.gazebo/ && sudo ln -s /data/gazebo/gazebo_models /home/ros/.gazebo/models
 
-RUN sudo chmod -R a+rwx /ros-data/gazebo/gazebo_models
+RUN sudo chmod -R a+rwx /data/gazebo/gazebo_models
 
 CMD ["bash"]
 ENTRYPOINT ["/ros_entrypoint.sh"]
