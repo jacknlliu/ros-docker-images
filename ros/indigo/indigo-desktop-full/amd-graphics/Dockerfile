@@ -77,7 +77,7 @@ RUN apt-get autoclean -y \
 
 
 # set user ros and sudo
-RUN adduser --gecos "ROS User" -d /home/ros --disabled-password ros
+RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros
 RUN usermod -a -G dialout ros
 RUN echo "ros ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_aptget
 
