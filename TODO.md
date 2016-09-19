@@ -1,14 +1,15 @@
-### add ros user
+# add ros user
 * no password
 * sudo user
 * as default login user
 * mkdir  workspace in the ros's home
 * add ros environment variable to .bashrc of user ros
+* use python script to generate the Docker file and change the code to module
 
-### some packages to install
+# some packages to install
 * vim
 * git
 
 
-### Reference
+# Reference
 [osblinnikov/ros-docker](https://github.com/osblinnikov/ros-docker)
