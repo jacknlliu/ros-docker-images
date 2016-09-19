@@ -59,7 +59,7 @@ RUN apt-get install -y ros-indigo-moveit-full \
 
 
 # install ssh
-RUN apt-get install -y --force-yes --no-install-recommends supervisor \ openssh-server  sudo
+RUN apt-get install -y supervisor openssh-server  sudo
 
 RUN mkdir -p /var/run/sshd
 RUN echo "	ForwardX11Trusted yes" >> /etc/ssh/ssh_config
