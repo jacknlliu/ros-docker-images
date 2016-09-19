@@ -71,6 +71,9 @@ COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # copy entrypoint file
 COPY ./ros_entrypoint.sh /
 
+# install amd graphics open source driver
+RUN apt-get install -y   xserver-xorg-video-ati mesa-utils
+
 # apt-get autoclean
 RUN apt-get autoclean -y \
 && apt-get autoremove -y \
