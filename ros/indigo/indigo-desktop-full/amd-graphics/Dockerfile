@@ -49,6 +49,7 @@ RUN hg clone https://bitbucket.org/osrf/gazebo_models
 
 # chmod
 RUN ls -al /ros_data/gazebo
+RUN ls -al /
 RUN chmod -R 777 /ros_data/gazebo/gazebo_models
 
 # install ros related components
