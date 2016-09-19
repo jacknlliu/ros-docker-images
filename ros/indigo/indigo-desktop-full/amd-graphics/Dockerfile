@@ -88,7 +88,7 @@ USER ros
 RUN export HOME=/home/ros && rosdep update
 RUN echo "export QT_X11_NO_MITSHM=1" >> /home/ros/.bashrc
 RUN echo "export HOME=/home/ros" >> /home/ros/.bashrc
-RUN echo "source "/opt/ros/$ROS_DISTRO/setup.bash" >> /home/ros/.bashrc
+RUN echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
 
 # link to root user home directory
 RUN mkdir -p /home/ros/.gazebo/ && sudo ln -s /ros-data/gazebo/gazebo_models /home/ros/.gazebo/models
