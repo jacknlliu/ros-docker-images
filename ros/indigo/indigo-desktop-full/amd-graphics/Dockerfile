@@ -44,8 +44,8 @@ RUN apt-get install -y mesa-common-dev libglu1-mesa-dev libfontconfig1
 RUN apt-get install -y qt5-default qtcreator
 
 # download gazebo models
-RUN mkdir -p /ros_data/gazebo && cd /ros_data/gazebo/
-RUN hg clone https://bitbucket.org/osrf/gazebo_models
+RUN mkdir -p /ros_data/gazebo
+RUN cd /ros_data/gazebo/ && hg clone https://bitbucket.org/osrf/gazebo_models
 
 # chmod
 RUN ls -al /ros_data/gazebo
@@ -88,7 +88,7 @@ RUN echo "ros ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_aptget
 USER ros
 
 # setup ros env
-RUN export HOME=/home/ros && rosdep update
+RUN HOME=/home/ros rosdep update
 RUN echo "export QT_X11_NO_MITSHM=1" >> /home/ros/.bashrc
 RUN echo "export HOME=/home/ros" >> /home/ros/.bashrc
 RUN echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
