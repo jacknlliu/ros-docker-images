@@ -102,7 +102,7 @@ RUN mkdir -p /home/ros/.gazebo/ && sudo ln -s /ros_data/gazebo/gazebo_models /ho
 # configure Qt
 RUN mkdir -p /home/ros/.config/QtProject
 COPY ./QtCreator.ini  /home/ros/.config/QtProject/
-RUN chown ros:ros /home/ros/.config/QtProject/QtCreator.ini
+RUN sudo chown ros:ros /home/ros/.config/QtProject/QtCreator.ini
 
 CMD ["bash"]
 ENTRYPOINT ["/ros_entrypoint.sh"]
