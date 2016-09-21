@@ -7,6 +7,7 @@
 # Known Issues and Limitations
 - `qtcreator` run application can't be stopped normally
 - `/dev/dri/card0` should `chmod`
+- **ros qtcreator plugin  need qt57creator, but this dependence should not satisfied!**
 
 
 # Reference

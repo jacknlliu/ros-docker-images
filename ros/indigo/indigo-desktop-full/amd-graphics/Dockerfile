@@ -58,10 +58,10 @@ RUN apt-get install -y mesa-common-dev libglu1-mesa-dev libfontconfig1
 RUN apt-get install -y qt5-default qtcreator qtdeclarative5-qtquick2-plugin
 
 # install ros qtcreator plugin
-RUN apt-get install -y software-properties-common python-software-properties
-RUN add-apt-repository -y ppa:beineri/opt-qt57-trusty
-RUN add-apt-repository -y ppa:levi-armstrong/ppa
-RUN apt-get update && apt-get install -y  qt57creator-plugin-ros
+# RUN apt-get install -y software-properties-common python-software-properties
+# RUN add-apt-repository -y ppa:beineri/opt-qt57-trusty
+# RUN add-apt-repository -y ppa:levi-armstrong/ppa
+# RUN apt-get update && apt-get install -y  qt57creator-plugin-ros
 
 # install ssh and sudo
 RUN apt-get install -y supervisor openssh-server  sudo
