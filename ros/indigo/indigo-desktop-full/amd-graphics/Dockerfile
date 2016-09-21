@@ -1,6 +1,6 @@
 FROM ubuntu:trusty
 
-MAINTAINER Jack Liu jackliu.lab@gmail.com
+MAINTAINER Jack Liu jacknlliu@gmail.com
 
 # setup environment
 RUN locale-gen en_US.UTF-8
@@ -33,6 +33,20 @@ RUN curl http://packages.osrfoundation.org/gazebo.key |apt-key add -
 
 RUN apt-get update && apt-get upgrade -y gazebo2
 
+# download gazebo models
+RUN mkdir -p /ros_data/gazebo
+RUN cd /ros_data/gazebo/ && hg clone https://bitbucket.org/osrf/gazebo_models
+
+# chmod gazebo models directory
+RUN chmod -R 777 /ros_data/gazebo/gazebo_models
+
+# install ros related components
+RUN apt-get install -y ros-indigo-moveit-full \
+    ros-indigo-gazebo-ros-control ros-indigo-effort-controllers \
+    ros-indigo-joint-state-controller ros-indigo-joint-trajectory-controller \
+    ros-indigo-ros-controllers ros-indigo-ur-description
+
+
 # install essential tools
 RUN apt-get install -y  bash-completion wget vim git terminator
 
@@ -43,23 +57,12 @@ RUN apt-get install -y build-essential gdb
 RUN apt-get install -y mesa-common-dev libglu1-mesa-dev libfontconfig1
 RUN apt-get install -y qt5-default qtcreator qtdeclarative5-qtquick2-plugin
 
-# download gazebo models
-RUN mkdir -p /ros_data/gazebo
-RUN cd /ros_data/gazebo/ && hg clone https://bitbucket.org/osrf/gazebo_models
+# install ros qtcreator plugin
+RUN add-apt-repository -y ppa:beineri/opt-qt57-trusty
+RUN add-apt-repository -y ppa:levi-armstrong/ppa
+RUN apt-get update && apt-get install -y  qt57creator-plugin-ros
 
-# chmod
-RUN ls -al /ros_data/gazebo
-RUN ls -al /
-RUN chmod -R 777 /ros_data/gazebo/gazebo_models
-
-# install ros related components
-RUN apt-get install -y ros-indigo-moveit-full \
-    ros-indigo-gazebo-ros-control ros-indigo-effort-controllers \
-    ros-indigo-joint-state-controller ros-indigo-joint-trajectory-controller \
-    ros-indigo-ros-controllers ros-indigo-ur-description
-
-
-# install ssh
+# install ssh and sudo
 RUN apt-get install -y supervisor openssh-server  sudo
 
 RUN mkdir -p /var/run/sshd
@@ -67,12 +70,6 @@ RUN echo "	ForwardX11Trusted yes" >> /etc/ssh/ssh_config
 
 # install xterm fonts
 RUN apt-get install -y xfonts-75dpi xfonts-100dpi xfonts-scalable
-
-# copy supervisord.conf file
-COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-# copy entrypoint file
-COPY ./ros_entrypoint.sh /
 
 # install amd graphics open source driver
 RUN apt-get install -y   xserver-xorg-video-ati mesa-utils
@@ -82,12 +79,18 @@ RUN apt-get autoclean -y \
 && apt-get autoremove -y \
 && rm -rf /var/lib/apt/lists/*
 
+# copy supervisord.conf file
+COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# copy entrypoint file
+COPY ./ros_entrypoint.sh /
+
 # set user ros and sudo
 RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros
 RUN usermod -a -G dialout ros
 RUN echo "ros ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_aptget
 
-# use user ros
+# use user ros, but the HOME is still /, not /home/ros
 USER ros
 
 # setup ros env
@@ -96,13 +99,12 @@ RUN echo "export QT_X11_NO_MITSHM=1" >> /home/ros/.bashrc
 RUN echo "export HOME=/home/ros" >> /home/ros/.bashrc
 RUN echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
 
-# link to root user home directory
+# link to ros user home directory
 RUN mkdir -p /home/ros/.gazebo/ && sudo ln -s /ros_data/gazebo/gazebo_models /home/ros/.gazebo/models
 
 # configure Qt
 RUN mkdir -p /home/ros/.config/QtProject
 COPY ./QtCreator.ini  /home/ros/.config/QtProject/
-RUN sudo chown ros:ros /home/ros/.config/QtProject/QtCreator.ini
 
 CMD ["bash"]
 ENTRYPOINT ["/ros_entrypoint.sh"]
