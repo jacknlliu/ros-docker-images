@@ -41,7 +41,7 @@ RUN apt-get install -y build-essential gdb
 
 # install IDE
 RUN apt-get install -y mesa-common-dev libglu1-mesa-dev libfontconfig1
-RUN apt-get install -y qt5-default qtcreator
+RUN apt-get install -y qt5-default qtcreator qtdeclarative5-qtquick2-plugin
 
 # download gazebo models
 RUN mkdir -p /ros_data/gazebo
@@ -64,6 +64,9 @@ RUN apt-get install -y supervisor openssh-server  sudo
 
 RUN mkdir -p /var/run/sshd
 RUN echo "	ForwardX11Trusted yes" >> /etc/ssh/ssh_config
+
+# install xterm fonts
+RUN apt-get install -y xfonts-75dpi xfonts-100dpi xfonts-scalable
 
 # copy supervisord.conf file
 COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -95,6 +98,11 @@ RUN echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
 
 # link to root user home directory
 RUN mkdir -p /home/ros/.gazebo/ && sudo ln -s /ros_data/gazebo/gazebo_models /home/ros/.gazebo/models
+
+# configure Qt
+RUN mkdir -p /home/ros/.config/QtProject
+COPY ./QtCreator.ini  /home/ros/.config/QtProject/
+RUN chown ros:ros /home/ros/.config/QtProject/QtCreator.ini
 
 CMD ["bash"]
 ENTRYPOINT ["/ros_entrypoint.sh"]
