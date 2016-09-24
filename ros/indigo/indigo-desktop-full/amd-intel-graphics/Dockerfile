@@ -75,6 +75,11 @@ RUN apt-get install -y xfonts-75dpi xfonts-100dpi xfonts-scalable
 # install amd graphics open source driver
 RUN apt-get install -y   xserver-xorg-video-ati mesa-utils
 
+# install intel graphics driver, especially i915 driver
+RUN echo "deb http://ppa.launchpad.net/oibaf/graphics-drivers/ubuntu trusty main" > /etc/apt/sources.list.d/intel-video-driver.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 957D2708A03A4626
+RUN apt-get update && apt-get install -y  xserver-xorg-video-intel
+
 # apt-get autoclean
 RUN apt-get autoclean -y \
 && apt-get autoremove -y \
