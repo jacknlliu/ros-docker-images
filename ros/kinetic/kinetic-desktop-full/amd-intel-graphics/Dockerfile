@@ -31,7 +31,7 @@ RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu xenial main" > /et
 
 RUN curl http://packages.osrfoundation.org/gazebo.key |apt-key add -
 
-RUN apt-get update && sudo apt-get install -y gazebo7
+RUN apt-get update && apt-get install -y gazebo7
 
 # download gazebo models
 RUN mkdir -p /ros_data/gazebo
