@@ -72,12 +72,12 @@ RUN echo "	ForwardX11Trusted yes" >> /etc/ssh/ssh_config
 RUN apt-get install -y xfonts-75dpi xfonts-100dpi xfonts-scalable
 
 # install intel graphics driver, especially i915 driver
-RUN echo "deb http://ppa.launchpad.net/oibaf/graphics-drivers/ubuntu kinetic main" > /etc/apt/sources.list.d/intel-video-driver.list
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 957D2708A03A4626
+RUN apt-get install -y software-properties-common python-software-properties
+RUN add-apt-repository -y ppa:oibaf/graphics-drivers
 RUN apt-get update && apt-get install -y  xserver-xorg-video-intel
 
 # install amd graphics open source driver
-RUN apt-get install -y   xserver-xorg-video-ati mesa-utils
+RUN apt-get install -y mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
 
 # apt-get autoclean
 RUN apt-get autoclean -y \
