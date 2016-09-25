@@ -8,8 +8,9 @@
 
 # Known Issues and Limitations
 - `qtcreator` run application can't be stopped normally
-- `/dev/dri/card0` should `chmod`
 - **ros qtcreator plugin  need qt57creator, but this dependence should not satisfied!**
+- the container os kernel should be close to the host os due to the **graphics driver**. (Ubuntu 14.04 intel graphics driver can not work with host kernel 4.7)
+
 
 
 # Reference

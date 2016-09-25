@@ -1,4 +1,4 @@
-FROM ubuntu:trusty
+FROM ubuntu:xenial
 
 MAINTAINER Jack Liu jacknlliu@gmail.com
 
@@ -16,8 +16,8 @@ RUN apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net --recv-key 0xB01FA1
 RUN apt-get update
 
 # install ros packages
-ENV ROS_DISTRO indigo
-RUN apt-get install -y ros-indigo-desktop-full=1.1.4-0*
+ENV ROS_DISTRO kinetic
+RUN apt-get install -y ros-kinetic-desktop-full
 
 # rosdep init
 RUN rosdep init
@@ -26,12 +26,12 @@ RUN rosdep init
 RUN apt-get install -y python-rosinstall
 
 # install additional system packages and ros packages
-# update gazebo2.2 to gazebo2.2.5
+# update gazebo
 RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/gazebo-latest.list
 
 RUN curl http://packages.osrfoundation.org/gazebo.key |apt-key add -
 
-RUN apt-get update && apt-get upgrade -y gazebo2
+RUN apt-get update && apt-get upgrade -y gazebo
 
 # download gazebo models
 RUN mkdir -p /ros_data/gazebo
@@ -41,10 +41,9 @@ RUN cd /ros_data/gazebo/ && hg clone https://bitbucket.org/osrf/gazebo_models
 RUN chmod -R 777 /ros_data/gazebo/gazebo_models
 
 # install ros related components
-RUN apt-get install -y ros-indigo-moveit-full \
-    ros-indigo-gazebo-ros-control \
-    ros-indigo-ros-controllers \
-    ros-indigo-ur-description
+# RUN apt-get install -y ros-kinetic-moveit-full
+RUN apt-get install -y  ros-kinetic-gazebo-ros-control \
+    ros-kinetic-ros-controllers
 
 
 # install essential tools
@@ -59,7 +58,7 @@ RUN apt-get install -y qt5-default qtcreator qtdeclarative5-qtquick2-plugin
 
 # install ros qtcreator plugin
 # RUN apt-get install -y software-properties-common python-software-properties
-# RUN add-apt-repository -y ppa:beineri/opt-qt57-trusty
+# RUN add-apt-repository -y ppa:beineri/opt-qt57-xenial
 # RUN add-apt-repository -y ppa:levi-armstrong/ppa
 # RUN apt-get update && apt-get install -y  qt57creator-plugin-ros
 
@@ -72,13 +71,13 @@ RUN echo "	ForwardX11Trusted yes" >> /etc/ssh/ssh_config
 # install xterm fonts
 RUN apt-get install -y xfonts-75dpi xfonts-100dpi xfonts-scalable
 
-# install amd graphics open source driver
-RUN apt-get install -y   xserver-xorg-video-ati mesa-utils
-
 # install intel graphics driver, especially i915 driver
-RUN echo "deb http://ppa.launchpad.net/oibaf/graphics-drivers/ubuntu trusty main" > /etc/apt/sources.list.d/intel-video-driver.list
+RUN echo "deb http://ppa.launchpad.net/oibaf/graphics-drivers/ubuntu kinetic main" > /etc/apt/sources.list.d/intel-video-driver.list
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 957D2708A03A4626
 RUN apt-get update && apt-get install -y  xserver-xorg-video-intel
+
+# install amd graphics open source driver
+RUN apt-get install -y   xserver-xorg-video-ati mesa-utils
 
 # apt-get autoclean
 RUN apt-get autoclean -y \
