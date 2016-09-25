@@ -6,6 +6,9 @@ MAINTAINER Jack Liu jacknlliu@gmail.com
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 
+# for ubuntu:xenial install lsb_release first
+RUN apt-get update && apt-get install -y lsb_release
+
 # setup sources.list
 RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list
 
