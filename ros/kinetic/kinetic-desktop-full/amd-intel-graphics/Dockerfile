@@ -6,11 +6,8 @@ MAINTAINER Jack Liu jacknlliu@gmail.com
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 
-# for ubuntu:xenial install lsb_release first
-RUN apt-get update && apt-get install -y lsb_release
-
 # setup sources.list
-RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list
+RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources.list.d/ros-latest.list
 
 # setup keys
 RUN apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 0xB01FA116
@@ -30,7 +27,7 @@ RUN apt-get install -y python-rosinstall
 
 # install additional system packages and ros packages
 # update gazebo
-RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/gazebo-latest.list
+RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu xenial main" > /etc/apt/sources.list.d/gazebo-latest.list
 
 RUN curl http://packages.osrfoundation.org/gazebo.key |apt-key add -
 
