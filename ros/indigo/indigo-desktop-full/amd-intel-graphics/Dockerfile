@@ -69,8 +69,6 @@ RUN apt-get install -y supervisor openssh-server  sudo
 RUN mkdir -p /var/run/sshd
 RUN echo "	ForwardX11Trusted yes" >> /etc/ssh/ssh_config
 
-# install xterm fonts
-RUN apt-get install -y xfonts-75dpi xfonts-100dpi xfonts-scalable
 
 # install amd graphics open source driver
 RUN apt-get install -y   xserver-xorg-video-ati mesa-utils

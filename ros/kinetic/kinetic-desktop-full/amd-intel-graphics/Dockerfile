@@ -68,16 +68,14 @@ RUN apt-get install -y supervisor openssh-server  sudo
 RUN mkdir -p /var/run/sshd
 RUN echo "	ForwardX11Trusted yes" >> /etc/ssh/ssh_config
 
-# install xterm fonts
-RUN apt-get install -y xfonts-75dpi xfonts-100dpi xfonts-scalable
 
 # install intel graphics driver, especially i915 driver
 RUN apt-get install -y software-properties-common python-software-properties
 RUN add-apt-repository -y ppa:oibaf/graphics-drivers
-RUN apt-get update && apt-get install -y  xserver-xorg-video-intel
+RUN apt-get update && apt-get install -y --no-install-recommends xserver-xorg-video-intel
 
 # install amd graphics open source driver
-RUN apt-get install -y mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
+RUN apt-get install -y --no-install-recommends mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
 
 # apt-get autoclean
 RUN apt-get autoclean -y \
