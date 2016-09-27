@@ -74,6 +74,8 @@ RUN apt-get install -y console-common
 RUN localectl set-x11-keymap us
 RUN localectl set-keymap us
 
+RUN apt-get insall -y apt-utils
+
 # install intel graphics driver, especially i915 driver
 RUN apt-get install -y software-properties-common python-software-properties
 RUN add-apt-repository -y ppa:oibaf/graphics-drivers
