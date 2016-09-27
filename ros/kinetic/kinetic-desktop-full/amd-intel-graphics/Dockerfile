@@ -68,18 +68,8 @@ RUN apt-get install -y supervisor openssh-server  sudo
 RUN mkdir -p /var/run/sshd
 RUN echo "	ForwardX11Trusted yes" >> /etc/ssh/ssh_config
 
-
-# for set keymap
-RUN apt-get install -y console-common
-RUN localectl set-x11-keymap us
-RUN localectl set-keymap us
-
-RUN apt-get insall -y apt-utils
-
-# install intel graphics driver, especially i915 driver
-RUN apt-get install -y software-properties-common python-software-properties
-RUN add-apt-repository -y ppa:oibaf/graphics-drivers
-RUN apt-get update && yes "29" | apt-get install -y xserver-xorg-video-intel
+# install intel graphics driver
+RUN apt-get -y install libgl1-mesa-glx libgl1-mesa-dri
 
 # install amd graphics open source driver
 RUN apt-get install -y mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
