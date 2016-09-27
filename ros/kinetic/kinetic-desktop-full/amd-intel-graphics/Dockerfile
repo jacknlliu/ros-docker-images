@@ -72,7 +72,7 @@ RUN echo "	ForwardX11Trusted yes" >> /etc/ssh/ssh_config
 RUN apt-get -y install libgl1-mesa-glx libgl1-mesa-dri
 
 # install amd graphics open source driver
-RUN apt-get install -y mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
+# RUN apt-get install -y mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
 
 # apt-get autoclean
 RUN apt-get autoclean -y \
