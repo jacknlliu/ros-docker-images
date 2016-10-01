@@ -26,12 +26,14 @@ RUN rosdep init
 RUN apt-get install -y python-rosinstall
 
 # install additional system packages and ros packages
-# update gazebo2.2 to gazebo2.2.5
+# update gazebo2.2 to gazebo7
 RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/gazebo-latest.list
 
 RUN curl http://packages.osrfoundation.org/gazebo.key |apt-key add -
 
-RUN apt-get update && apt-get upgrade -y gazebo2
+RUN apt-get remove -y gazebo2
+
+RUN apt-get update && apt-get install -y gazebo7
 
 # download gazebo models
 RUN mkdir -p /ros_data/gazebo
@@ -42,7 +44,8 @@ RUN chmod -R 777 /ros_data/gazebo/gazebo_models
 
 # install ros related components
 RUN apt-get install -y ros-indigo-moveit-full \
-    ros-indigo-gazebo-ros-control \
+    ros-indigo-gazebo7-ros-pkgs \
+    ros-indigo-gazebo7-ros-control \
     ros-indigo-ros-controllers \
     ros-indigo-ur-description
 
