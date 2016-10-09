@@ -47,7 +47,7 @@ RUN apt-get install -y  ros-kinetic-gazebo-ros-control \
 
 
 # install essential tools
-RUN apt-get install -y  bash-completion wget vim git terminator
+RUN apt-get install -y  bash-completion wget vim git iputils-ping terminator
 
 # install additional build tool
 RUN apt-get install -y build-essential gdb
