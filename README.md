@@ -8,13 +8,18 @@ ROS desktop-full docker images with Qt C++ debug toolchains for Fedora users who
 
 # Usage
 ```shell
-docker   run  --device   /dev/dri     --security-opt="label:disable"    --env="DISPLAY" --env QT_X11_NO_MITSHM=1  --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" --volume="/home/<your_user_name>/Workspace:/data:rw" lmaths/ros:indigo-qt-amd-intel terminator
+docker   run  --device   /dev/dri    \
+ --security-opt="label:disable"      \
+ --env="DISPLAY" --env QT_X11_NO_MITSHM=1  \
+ --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+ --volume="/home/<your_user_name>/Workspace:/data:rw"  \
+ lmaths/ros:indigo-qt-amd-intel terminator
 ```
 
 
 # TODO List
-- [ ] install Qt5.7 silently
-- [ ] configure Qt5.7 environment variable
+- [x] ~~install Qt5.7 silently~~ install Qt5.7.0 from source
+- [x] configure Qt5.7 environment variable
 - [ ] re-write ros qtcreator plugin installation script
 - [ ] configure ros qtcreator plugin
 
@@ -30,7 +35,7 @@ The X11 connection broke: I/O error (code 1)
 XIO:  fatal IO error 11 (Resource temporarily unavailable) on X server ":0"
       after 445 requests (439 known processed) with 0 events remaining.
 ```
-**NOTE:** in ROS `indigo` docker image, the `libxcb` version 1.10-2 in container works well with Fedora `libxcb` version 1.11.1, but `libxcb` version 1.11.1-1ubuntu not works well with Fedora `libxcb` version 1.11.1. It's amazing!
+**NOTE:** This error caused by the X applications in the docker container request the Mir which is the default display server on Ubuntu 16.04, but Fedora use X11 protocol. More details, please see [Wayland vs Mir vs X11](https://www.reddit.com/r/linux/comments/4bq9kl/eli5_wayland_vs_mir_vs_x11/?st=iu85rt2i&sh=6e4ab55c) and [X11 connection broke: I/O error](https://github.com/osrf/docker_images/issues/40#issuecomment-253314055)
 
 
 # Reference

@@ -53,9 +53,16 @@ RUN apt-get install -y  bash-completion wget vim git terminator
 # install additional build tool
 RUN apt-get install -y build-essential gdb
 
-# install IDE
+# install IDE essential packages
 RUN apt-get install -y mesa-common-dev libglu1-mesa-dev libfontconfig1
-RUN apt-get install -y qt5-default qtcreator qtdeclarative5-qtquick2-plugin
+
+# install Qt from source codes
+COPY ./qt5-installer.sh  /
+RUN chmod +x /qt5-installer.sh && /qt5-installer.sh
+RUN rm -f /qt5-installer.sh
+
+# install Qt plugin
+RUN apt-get install -y qtdeclarative5-qtquick2-plugin
 
 # install ros qtcreator plugin
 # RUN apt-get install -y software-properties-common python-software-properties
@@ -67,7 +74,7 @@ RUN apt-get install -y qt5-default qtcreator qtdeclarative5-qtquick2-plugin
 RUN apt-get install -y supervisor openssh-server  sudo
 
 RUN mkdir -p /var/run/sshd
-RUN echo "	ForwardX11Trusted yes" >> /etc/ssh/ssh_config
+RUN echo "ForwardX11Trusted yes" >> /etc/ssh/ssh_config
 
 
 # install amd graphics open source driver
