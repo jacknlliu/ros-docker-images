@@ -61,7 +61,8 @@ RUN apt-get install -y mesa-common-dev libglu1-mesa-dev libfontconfig1
 
 # install Qt from source codes
 COPY ./qt5-installer.sh  /
-RUN chmod +x /qt5-installer.sh && /qt5-installer.sh
+RUN chmod a+x /qt5-installer.sh
+RUN /bin/bash -c "source /qt5-installer.sh"
 RUN rm -f /qt5-installer.sh
 
 # install Qt plugin
