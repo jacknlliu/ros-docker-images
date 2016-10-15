@@ -24,10 +24,11 @@ cd /install_data/qt-everywhere-opensource-src-5.7.0 && ./configure -prefix $QT5P
 
 # ln /usr/bin/<qt_exec>
 export QT5BINDIR=$QT5PREFIX/bin
+echo "[DEBUG] QT5BINDIR: $QT5BINDIR"
 
-for file in moc uic rcc qmake lconvert lrelease lupdate; do
-  ln -sfrvn $QT5BINDIR/$file /usr/bin/$file
-  echo "[DEBUG] ln -sfrvn $QT5BINDIR/$file /usr/bin/$file"
+for file in moc uic rcc qmake lconvert lrelease lupdate; do \
+  ln -sfrvn $QT5BINDIR/$file /usr/bin/$file; \
+  echo "[DEBUG] ln -sfrvn $QT5BINDIR/$file /usr/bin/$file"; \
 done
 
 # setup ld.so.conf
