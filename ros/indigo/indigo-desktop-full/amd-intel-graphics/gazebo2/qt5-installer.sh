@@ -61,17 +61,14 @@ cd /install_data && wget http://download.qt.io/official_releases/qtcreator/4.1/4
 cd /install_data && tar -xf qt-creator-opensource-src-4.1.0.tar.xz >/dev/null
 
 # prepare the Makefile using qmake
-cd /install_data && mkdir qt-creator-build  \
-&& cd qt-creator-build/                     \
-&& qmake -r ../qt-creator-opensource-src-4.1.0/qtcreator.pro
-
-# make
-make -j 4
-
-# install
 mkdir /opt/Qt/Tools/
 export INSTALL_DIRECTORY=/opt/Qt/Tools/
-make install INSTALL_ROOT=$INSTALL_DIRECTORY
+
+cd /install_data && mkdir qt-creator-build  \
+&& cd qt-creator-build/                     \
+&& qmake -r ../qt-creator-opensource-src-4.1.0/qtcreator.pro \
+&& make -j 4 \
+&& make install INSTALL_ROOT=$INSTALL_DIRECTORY
 
 
 # ln /usr/bin/qtcreator
