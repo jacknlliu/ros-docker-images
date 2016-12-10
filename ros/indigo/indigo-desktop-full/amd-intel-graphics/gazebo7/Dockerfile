@@ -47,7 +47,11 @@ RUN apt-get install -y ros-indigo-moveit-full \
     ros-indigo-gazebo7-ros-pkgs \
     ros-indigo-gazebo7-ros-control \
     ros-indigo-ros-controllers \
+    ros-indigo-rqt-controller-manager \
     ros-indigo-ur-description
+
+# install orocos rtt components
+RUN apt-get install -y ros-indigo-rtt ros-indigo-rtt-*
 
 
 # install essential tools

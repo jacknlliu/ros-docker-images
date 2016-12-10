@@ -43,7 +43,8 @@ RUN chmod -R 777 /ros_data/gazebo/gazebo_models
 # install ros related components
 # RUN apt-get install -y ros-kinetic-moveit-full
 RUN apt-get install -y  ros-kinetic-gazebo-ros-control \
-    ros-kinetic-ros-controllers
+    ros-kinetic-ros-controllers \
+    ros-kinetic-rqt-controller-manager
 
 
 # install essential tools

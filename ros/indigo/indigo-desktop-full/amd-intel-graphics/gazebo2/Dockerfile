@@ -44,8 +44,11 @@ RUN chmod -R 777 /ros_data/gazebo/gazebo_models
 RUN apt-get install -y ros-indigo-moveit-full \
     ros-indigo-gazebo-ros-control \
     ros-indigo-ros-controllers \
+    ros-indigo-rqt-controller-manager \
     ros-indigo-ur-description
 
+# install orocos rtt components
+RUN apt-get install -y ros-indigo-rtt ros-indigo-rtt-*
 
 # install essential tools
 RUN apt-get install -y  bash-completion wget vim git terminator
