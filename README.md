@@ -10,18 +10,20 @@ ROS desktop-full docker images with Qt C++ debug toolchains for Fedora users who
 ```shell
 docker   run  --device   /dev/dri    \
  --security-opt="label:disable"      \
+ --security-opt seccomp:unconfined   \
  --env="DISPLAY" --env QT_X11_NO_MITSHM=1  \
  --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
  --volume="/home/<your_user_name>/Workspace:/data:rw"  \
+ --volume="/path/to/gazebo_models:/home/ros/.gazebo/models:rw" \
  lmaths/ros:indigo-qt-amd-intel terminator
-```
+``` 
 
 
 # TODO List
-- [x] ~~install Qt5.7 silently~~ install Qt5.7.0 from source
-- [x] configure Qt5.7 environment variable
-- [ ] re-write ros qtcreator plugin installation script
-- [ ] configure ros qtcreator plugin
+- [x] ~~install Qt5.7 silently install Qt5.7.0 from source~~
+- [x] ~~configure Qt5.7 environment variable~~
+- [ ] ~~re-write ros qtcreator plugin installation script~~
+- [ ] ~~configure ros qtcreator plugin~~
 
 
 # Known Issues and Limitations
