@@ -96,7 +96,12 @@ RUN echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
 
 # configure Qt
 RUN mkdir -p /home/ros/.config/QtProject
+
+USER root
 COPY ./QtCreator.ini  /home/ros/.config/QtProject/
+RUN chown -R ros:ros  /home/ros/.config/QtProject/
+
+USER ros
 
 CMD ["bash"]
 ENTRYPOINT ["/ros_entrypoint.sh"]
