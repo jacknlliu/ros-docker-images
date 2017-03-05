@@ -101,6 +101,12 @@ USER root
 COPY ./QtCreator.ini  /home/ros/.config/QtProject/
 RUN chown -R ros:ros  /home/ros/.config/QtProject/
 
+# config gazebo volume
+RUN mkdir -p /home/ros/.gazebo/models && chown -R ros:ros /home/ros/.gazebo/models
+
+# share this volume with other containers from this image
+VOLUME ["/home/ros/.gazebo/models"]
+
 USER ros
 
 CMD ["bash"]
