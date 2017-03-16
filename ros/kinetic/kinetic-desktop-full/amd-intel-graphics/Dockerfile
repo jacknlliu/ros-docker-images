@@ -41,7 +41,8 @@ RUN apt-get install -y -q --no-install-recommends  ros-kinetic-gazebo-ros-contro
     ros-kinetic-rqt-controller-manager \
     ros-kinetic-moveit \
     ros-kinetic-orocos-kdl \
-    ros-kinetic-orocos-kinematics-dynamics
+    ros-kinetic-orocos-kinematics-dynamics \
+    ros-kinetic-pid
 
 # install essential tools
 RUN apt-get install -y -q --no-install-recommends  bash-completion wget vim git iputils-ping terminator
