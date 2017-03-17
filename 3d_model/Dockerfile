@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV NORMAL_USER robot3d
 
 # install blender
-RUN apt-get -y update && apt-get install -q -y --no-install-recommends blender
+RUN apt-get -y update && apt-get upgrade -q -y --no-install-recommends  && apt-get install -q -y --no-install-recommends blender
 
 # setup sudoers
 RUN apt-get install -q -y --no-install-recommends sudo
@@ -22,6 +22,13 @@ RUN apt-get install -y -q --no-install-recommends libgl1-mesa-glx libgl1-mesa-dr
 
 # install amd graphics open source driver
 RUN apt-get install -y -q --no-install-recommends mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
+
+# install NVIDIA driver prerequisite
+RUN apt-get install -y -q --no-install-recommends software-properties-common
+
+RUN add-apt-repository -yu ppa:graphics-drivers/ppa
+
+RUN apt-get install -y -q --no-install-recommends ubuntu-drivers-common
 
 
 # apt-get autoclean
