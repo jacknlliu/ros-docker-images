@@ -26,7 +26,7 @@ RUN apt-get install -y -q --no-install-recommends mesa-vdpau-drivers xserver-xor
 # install NVIDIA driver prerequisite
 RUN apt-get install -y -q --no-install-recommends software-properties-common
 
-RUN add-apt-repository -yu ppa:graphics-drivers/ppa
+RUN add-apt-repository -y ppa:graphics-drivers/ppa && apt-get update -y
 
 RUN apt-get install -y -q --no-install-recommends ubuntu-drivers-common
 
