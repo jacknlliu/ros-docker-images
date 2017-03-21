@@ -44,6 +44,9 @@ RUN apt-get install -y -q --no-install-recommends  ros-kinetic-gazebo-ros-contro
     ros-kinetic-orocos-kinematics-dynamics \
     ros-kinetic-pid
 
+# install Barret_Hand related components
+RUN apt-get install -y -q --no-install-recommends libignition-math2-dev libignition-common-dev ros-kinetic-barrett-hand ros-kinetic-barrett-hand-sim
+
 # install essential tools
 RUN apt-get install -y -q --no-install-recommends  bash-completion wget vim git iputils-ping terminator
 
