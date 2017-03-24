@@ -44,6 +44,9 @@ RUN apt-get install -y -q --no-install-recommends  ros-kinetic-gazebo-ros-contro
     ros-kinetic-orocos-kinematics-dynamics \
     ros-kinetic-pid
 
+# install fast inverse kinematics module
+RUN apt-get install -y -q --no-install-recommends ros-kinetic-katana-moveit-ikfast-plugin  ros-kinetic-trac-ik-lib
+
 # install Barret_Hand related components
 RUN apt-get install -y -q --no-install-recommends libignition-math2-dev libignition-common-dev ros-kinetic-barrett-hand ros-kinetic-barrett-hand-sim
 
