@@ -2,25 +2,8 @@ FROM lmaths/ros:kinetic-extensions
 
 MAINTAINER Jack Liu jacknlliu@gmail.com
 
-# install additional build tool
-RUN apt-get update -y && apt-get install -y -q --no-install-recommends build-essential gdb
-
-# install IDE essential packages
-RUN apt-get install -y -q --no-install-recommends mesa-common-dev libglu1-mesa-dev libfontconfig1
-
-# install qt5 and qtcreator, qtdeclarative5-qtquick2
-RUN apt-get install -y -q --no-install-recommends qt5-default qtcreator qtdeclarative5-qtquick2-plugin
-
-# install intel graphics driver
-RUN apt-get install -y -q --no-install-recommends libgl1-mesa-glx libgl1-mesa-dri
-
-# install amd graphics open source driver
-RUN apt-get install -y -q --no-install-recommends mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
-
-# apt-get autoclean
-RUN apt-get autoclean -y \
-&& apt-get autoremove -y \
-&& rm -rf /var/lib/apt/lists/*
+# config sshd
+RUN mkdir -p /var/run/sshd && echo "ForwardX11Trusted yes" >> /etc/ssh/ssh_config
 
 # copy supervisord.conf file
 COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf

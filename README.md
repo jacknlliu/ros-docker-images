@@ -31,7 +31,6 @@ docker run --device /dev/dri  \
 
 
 # TODO List
-- [ ] reduce the number of docker image layers
 - [ ] add reinforcement learning libraries, including rllab.
 - [ ] add machine learning libraries.
 - [ ] add deep learning, including tensorflow.
