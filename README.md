@@ -2,7 +2,7 @@
 
 [![](https://images.microbadger.com/badges/image/lmaths/ros.svg)](https://microbadger.com/images/lmaths/ros "lmaths/ros docker images")
 
-![docker startup demo](resources/ur5_demo.gif)
+![docker startup demo](https://raw.githubusercontent.com/jacknlliu/ros-docker-images/master/resources/ur5_demo.gif)
 
 ROS desktop-full docker images with Qt C++ debug tool-chain for Fedora and other Linux users who do not use Ubuntu.
 
