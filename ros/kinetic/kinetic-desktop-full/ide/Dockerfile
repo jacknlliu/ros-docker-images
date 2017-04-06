@@ -3,7 +3,7 @@ FROM lmaths/ros:kinetic-extensions
 MAINTAINER Jack Liu jacknlliu@gmail.com
 
 # install additional build tool
-RUN apt-get install -y -q --no-install-recommends build-essential gdb
+RUN apt-get update -y && apt-get install -y -q --no-install-recommends build-essential gdb
 
 # install IDE essential packages
 RUN apt-get install -y -q --no-install-recommends mesa-common-dev libglu1-mesa-dev libfontconfig1
