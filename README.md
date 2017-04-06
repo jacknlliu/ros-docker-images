@@ -6,7 +6,15 @@
 
 ROS desktop-full docker images with Qt C++ debug tool-chain for Fedora and other Linux users who do not use Ubuntu.
 
-This project aims to build an all-in-one development environment for robot learning including robotics and deep reinforcement learning and a portable platform for intelligent robot applications.
+This project aims to build an All-in-One development environment for robot learning including robotics and deep reinforcement learning and a portable platform for intelligent robot applications.
+
+
+# Features
+- integrated with open source AMD and Intel GPU driver
+- support gazebo simulation
+- including QtCreator as ROS IDE which supports build and **debug** your ROS packages
+- including [terminator](http://gnometerminator.blogspot.com/p/introduction.html), a multi-windows supported free terminal emulator
+- including [ros desktop-full](http://wiki.ros.org/kinetic/Installation/Ubuntu) packages
 
 
 # Usage
@@ -33,3 +41,5 @@ docker run --device /dev/dri  \
 - It will be a large image.
 
 # Reference
+
+***enjoy it!***
