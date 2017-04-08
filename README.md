@@ -26,6 +26,7 @@ docker run --device /dev/dri  \
  --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw"  \
  --volume="/home/<your_user_name>/Workspace:/data:rw"  \
  --volume="/path/to/gazebo_models:/home/ros/.gazebo/models:rw"  \
+ --name="ros_kinetic_devel"  \
  lmaths/ros:kinetic-ide terminator
 ```
 
