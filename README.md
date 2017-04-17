@@ -55,7 +55,7 @@ If this project really help you, you can pay for it.
 
 Just scan the following QR code using [Alipay](https://play.google.com/store/apps/details?id=com.eg.android.AlipayGphone&hl=en) mobile application, and **any amount will be OK**.
 
-<img src="./resources/AlipayQRCode.png" style="zoom:50%" alt="AlipayQRCode" align=center />
+![AlipayQRCode](./resources/AlipayQRCode_256x256.jpg)
 
 
 ***enjoy it!***
