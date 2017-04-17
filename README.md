@@ -30,6 +30,7 @@ docker run --device /dev/dri  \
  lmaths/ros:kinetic-ide terminator
 ```
 
+[More](#interface_to_developer_real_life).
 
 # TODO List
 - [ ] add NVIDIA driver Installation instruction
@@ -51,7 +52,10 @@ docker run --device /dev/dri  \
 This project is distributed under [MIT License](https://en.wikipedia.org/wiki/MIT_License).
 
 
-# Pay What You Want
+
+
+<h1 id="interface_to_developer_real_life"> Pay What You Want </h1>
+
 If this project really help you, you can pay for it.
 
 Just scan the following QR code using [Alipay](https://play.google.com/store/apps/details?id=com.eg.android.AlipayGphone&hl=en) mobile application, and **any amount will be OK**.
