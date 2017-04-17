@@ -33,6 +33,7 @@ docker run --device /dev/dri  \
 
 # TODO List
 - [ ] add NVIDIA driver Installation instruction
+- [ ] add Chinese document
 - [ ] add RoboWare IDE
 - [ ] add reinforcement learning libraries, including rllab.
 - [ ] add machine learning libraries.
@@ -41,7 +42,7 @@ docker run --device /dev/dri  \
 
 # Known Issues and Limitations
 - It will be a large image.
-- common issue about NVIDIA GPU driver  
+- common issues about NVIDIA GPU driver
 
 # Reference
 
@@ -55,7 +56,10 @@ If this project really help you, you can pay for it.
 
 Just scan the following QR code using [Alipay](https://play.google.com/store/apps/details?id=com.eg.android.AlipayGphone&hl=en) mobile application, and **any amount will be OK**.
 
+<div align = center>
+
 ![AlipayQRCode](./resources/AlipayQRCode_256x256.jpg)
 
+</div>
 
 ***enjoy it!***
