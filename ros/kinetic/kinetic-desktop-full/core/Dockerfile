@@ -5,7 +5,8 @@ MAINTAINER Jack Liu jacknlliu@gmail.com
 # setup environment
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN locale-gen en_US.UTF-8
+RUN apt-get update -y && apt-get install -y -q --no-install-recommends locales && locale-gen en_US.UTF-8
+
 ENV LANG en_US.UTF-8
 
 # define ros distribution version
