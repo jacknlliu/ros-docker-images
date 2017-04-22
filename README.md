@@ -19,18 +19,28 @@ This project aims to build an All-in-One development environment for robot learn
 
 # Usage
 ```shell
-docker run --device /dev/dri  \
+docker run --privileged  \
  --security-opt="label:disable"  \
  --security-opt seccomp:unconfined  \
  --env="DISPLAY" --env QT_X11_NO_MITSHM=1  \
  --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw"  \
  --volume="/home/<your_user_name>/Workspace:/data:rw"  \
  --volume="/path/to/gazebo_models:/home/ros/.gazebo/models:rw"  \
- --name="ros_kinetic_devel"  \
+ --name="ros_kinetic"  \
  lmaths/ros:kinetic-ide terminator
 ```
 
-[More](#interface_to_developer_real_life).
+
+# Pay What You Want
+
+If this project really help you, you can pay for it.
+
+Just scan the following QR code using [Alipay](https://play.google.com/store/apps/details?id=com.eg.android.AlipayGphone&hl=en) mobile application, and **any amount will be OK**.
+
+![AlipayQRCode](https://raw.githubusercontent.com/jacknlliu/ros-docker-images/master/resources/AlipayQRCode_256x256.jpg)
+
+***enjoy it!***
+
 
 # TODO List
 - [ ] add NVIDIA driver Installation instruction
@@ -45,25 +55,9 @@ docker run --device /dev/dri  \
 - It will be a large image.
 - common issues about NVIDIA GPU driver
 
+
 # Reference
 
 
 # LICENSE
 This project is distributed under [MIT License](https://en.wikipedia.org/wiki/MIT_License).
-
-
-
-
-<h1 id="interface_to_developer_real_life"> Pay What You Want </h1>
-
-If this project really help you, you can pay for it.
-
-Just scan the following QR code using [Alipay](https://play.google.com/store/apps/details?id=com.eg.android.AlipayGphone&hl=en) mobile application, and **any amount will be OK**.
-
-<div align = center>
-
-![AlipayQRCode](./resources/AlipayQRCode_256x256.jpg)
-
-</div>
-
-***enjoy it!***
