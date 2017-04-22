@@ -3,7 +3,7 @@ FROM lmaths/ros:kinetic-extensions
 MAINTAINER Jack Liu jacknlliu@gmail.com
 
 # config sshd
-RUN mkdir -p /var/run/sshd && echo "ForwardX11Trusted yes" >> /etc/ssh/ssh_config
+RUN mkdir -p /var/run/sshd && echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
 
 # copy supervisord.conf file
 COPY ./config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf

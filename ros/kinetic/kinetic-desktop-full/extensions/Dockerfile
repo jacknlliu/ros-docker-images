@@ -3,7 +3,7 @@ FROM lmaths/ros:kinetic-core
 MAINTAINER Jack Liu jacknlliu@gmail.com
 
 # install essential tools, ssh sever, sudo
-RUN apt-get update -y && apt-get install -y -q --no-install-recommends  bash-completion wget vim git iputils-ping terminator supervisor openssh-server  sudo
+RUN apt-get update -y && apt-get install -y -q --no-install-recommends  bash-completion wget vim git iputils-ping terminator supervisor xauth openssh-server sudo
 
 # install ros related components
 RUN apt-get install -y -q --no-install-recommends  ros-kinetic-gazebo-ros-control \
