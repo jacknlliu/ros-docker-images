@@ -4,20 +4,28 @@
 
 ![docker startup demo](https://raw.githubusercontent.com/jacknlliu/ros-docker-images/master/resources/ur5_demo.gif)
 
-ROS desktop-full docker images with Qt C++ debug tool-chain for Fedora and other Linux users who do not use Ubuntu.
+[ROS desktop-full docker images](https://hub.docker.com/r/lmaths/ros/) with Qt C++ debug tool-chain for Fedora and other Linux users who do not use Ubuntu.
 
 This project aims to build an All-in-One development environment for robot learning including robotics and deep reinforcement learning and a portable platform for intelligent robot applications.
 
 
 # Features
 - integrated with open source AMD and Intel GPU driver
-- support gazebo simulation
-- including QtCreator as ROS IDE which supports build and **debug** your ROS packages
+- support `gazebo` simulation
+- including `QtCreator` as ROS IDE which supports build and **debug** your ROS packages
 - including [terminator](http://gnometerminator.blogspot.com/p/introduction.html), a multi-windows supported free terminal emulator
-- including [ros desktop-full](http://wiki.ros.org/kinetic/Installation/Ubuntu) packages
+- including [ros desktop-full](http://wiki.ros.org/kinetic/Installation/Ubuntu) packages, support `indigo` and `kinetic` version.
 
 
 # Usage
+- Pull docker image
+```
+$ docker pull lmaths/ros:kinetic-ide
+```
+See it on [docker hub](https://hub.docker.com/r/lmaths/ros/).
+
+
+- Run
 ```shell
 docker run --privileged  \
  --security-opt="label:disable"  \
@@ -44,11 +52,15 @@ Just scan the following QR code using [Alipay](https://play.google.com/store/app
 
 # TODO List
 - [ ] add NVIDIA driver Installation instruction
+- [ ] update ros indigo image
+- [ ] add robot grasping standalone image
+- [ ] update demo gif picture with robot grasping task
 - [ ] add Chinese document
 - [ ] add RoboWare IDE
-- [ ] add reinforcement learning libraries, including rllab.
-- [ ] add machine learning libraries.
-- [ ] add deep learning, including tensorflow.
+- [ ] add reinforcement learning libraries, including rllab
+- [ ] add machine learning libraries
+- [ ] add deep learning, including tensorflow
+- [ ] add mobile robot standalone image for robot SLAM and robot vision research
 
 
 # Known Issues and Limitations
@@ -57,6 +69,8 @@ Just scan the following QR code using [Alipay](https://play.google.com/store/app
 
 
 # Reference
+- [OSRF Docker Images](https://github.com/osrf/docker_images)
+- [PX4 Docker Containers](https://dev.px4.io/en/test_and_ci/docker.html)
 
 
 # LICENSE
