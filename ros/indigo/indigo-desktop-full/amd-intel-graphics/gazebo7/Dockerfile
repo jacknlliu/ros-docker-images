@@ -84,12 +84,14 @@ RUN apt-get install -y supervisor openssh-server  sudo
 RUN mkdir -p /var/run/sshd
 RUN echo "ForwardX11Trusted yes" >> /etc/ssh/ssh_config
 
+# install intel graphics driver
+RUN apt-get -y install libgl1-mesa-glx libgl1-mesa-dri
 
 # install amd graphics open source driver
 RUN apt-get install -y mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
 
-# install intel graphics driver
-RUN apt-get -y install libgl1-mesa-glx libgl1-mesa-dri
+# we should fix AMD graphics driver with image driver extension not found in ubuntu 14.04.2, refrence: https://wiki.ubuntu.com/Kernel/LTSEnablementStack#Ubuntu_14.04_LTS_-_Trusty_Tahr
+RUN apt-get install -y -q --no-install-recommends linux-generic-lts-xenial xserver-xorg-core-lts-xenial xserver-xorg-lts-xenial xserver-xorg-video-all-lts-xenial xserver-xorg-input-all-lts-xenial libwayland-egl1-mesa-lts-xenial
 
 # apt-get autoclean
 RUN apt-get autoclean -y \
