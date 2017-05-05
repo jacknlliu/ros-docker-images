@@ -20,10 +20,10 @@ RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros && \
 USER ros
 
 # setup ros env
-RUN HOME=/home/ros rosdep update
-RUN echo "export QT_X11_NO_MITSHM=1" >> /home/ros/.bashrc && \
-    echo "export HOME=/home/ros" >> /home/ros/.bashrc && \
-    echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
+RUN HOME=/home/ros rosdep update  \
+    && echo "export QT_X11_NO_MITSHM=1" >> /home/ros/.bashrc  \
+    && echo "export HOME=/home/ros" >> /home/ros/.bashrc  \
+    && echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
 
 # configure Qt
 RUN mkdir -p /home/ros/.config/QtProject

@@ -1,78 +1,71 @@
-FROM ubuntu:trusty
+FROM ubuntu:14.04
 
 MAINTAINER Jack Liu jacknlliu@gmail.com
 
 # setup environment
 ENV DEBIAN_FRONTEND noninteractive
+ENV ROS_DISTRO indigo
 
-# setup environment
+# setup locale
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 
 # setup sources.list
-RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list
-
+RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list \
+\
 # setup keys
-RUN apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
-
-# update the repository
-RUN apt-get update -y
-
-# install ros packages
-ENV ROS_DISTRO indigo
-RUN apt-get install -y -q --no-install-recommends ros-indigo-desktop-full=1.1.4-0*  python-rosinstall
-
-# rosdep init
-RUN rosdep init
-
+    && apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 \
+\
+# update the repository and install ros packages
+    && apt-get update -y \
+    && apt-get install -y -q --no-install-recommends apt-transport-https aptitude \
+    && aptitude install -y -q -R ros-indigo-desktop-full python-rosinstall \
+    && rosdep init
 
 # install additional system packages and ros packages
 # update gazebo2.2 to gazebo2.2.5
-RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/gazebo-latest.list
-
-RUN curl http://packages.osrfoundation.org/gazebo.key |apt-key add -
-
-RUN apt-get update -y && apt-get upgrade -y gazebo2
-
+RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/gazebo-latest.list \
+    && curl http://packages.osrfoundation.org/gazebo.key |apt-key add - \
+    && aptitude update -y -q \
+    && aptitude upgrade -y -q -R gazebo2
 
 # install essential tools
-RUN apt-get install -y -q --no-install-recommends  bash-completion wget vim git terminator supervisor xauth openssh-server sudo
-
+RUN aptitude install -y -q -R  bash-completion wget vim git terminator supervisor xauth openssh-server sudo \
+    \
 # install additional build tool
-RUN apt-get install -y -q --no-install-recommends build-essential gdb
-
+    && aptitude install -y -q -R build-essential gdb \
+    \
 # install IDE essential packages
-RUN apt-get install -y -q --no-install-recommends mesa-common-dev libglu1-mesa-dev libfontconfig1 qt5-default qtcreator qtdeclarative5-qtquick2-plugin
-
-
+    && aptitude install -y -q -R mesa-common-dev libglu1-mesa-dev libfontconfig1 qt5-default qtcreator qtdeclarative5-qtquick2-plugin \
+    \
 # setup ssh
-RUN mkdir -p /var/run/sshd && echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
+    && mkdir -p /var/run/sshd && echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
 
 # install intel graphics driver
-RUN apt-get install -y -q --no-install-recommends libgl1-mesa-glx libgl1-mesa-dri
-
+RUN aptitude install -y -q -R libgl1-mesa-glx libgl1-mesa-dri \
+    \
 # install amd graphics open source driver
-RUN apt-get install -y -q --no-install-recommends mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
-
+    && aptitude install -y -q -R mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils \
+    \
 # we should fix AMD graphics driver with image driver extension not found in ubuntu 14.04.2, refrence: https://wiki.ubuntu.com/Kernel/LTSEnablementStack#Ubuntu_14.04_LTS_-_Trusty_Tahr
-#RUN apt-get install -y -q --no-install-recommends linux-generic-lts-xenial xserver-xorg-core-lts-xenial xserver-xorg-lts-xenial xserver-xorg-video-all-lts-xenial xserver-xorg-input-all-lts-xenial libwayland-egl1-mesa-lts-xenial
+    && aptitude install -y -q -R linux-generic-lts-xenial xserver-xorg-core-lts-xenial xserver-xorg-lts-xenial xserver-xorg-video-all-lts-xenial xserver-xorg-input-all-lts-xenial libwayland-egl1-mesa-lts-xenial
 
 # install ros related components
-RUN apt-get install -y -q --no-install-recommends ros-indigo-moveit-full \
+RUN aptitude install -y -q -R ros-indigo-moveit-full \
     ros-indigo-gazebo-ros-control \
     ros-indigo-ros-controllers \
     ros-indigo-rqt-controller-manager \
     ros-indigo-ur-description \
     ros-indigo-camera-calibration \
     ros-indigo-camera-calibration-parsers \
-    ros-indigo-camera-info-manager
-
+    ros-indigo-camera-info-manager \
+    \
 # install orocos rtt components
-RUN apt-get install -y -q --no-install-recommends ros-indigo-orocos-kdl ros-indigo-rtt ros-indigo-rtt-*
+    && aptitude install -y -q -R ros-indigo-orocos-kdl ros-indigo-rtt ros-indigo-rtt-*
 
 # apt-get autoclean
-RUN apt-get autoclean -y \
-&& apt-get autoremove -y \
+RUN aptitude clean -y -q \
+&& sudo aptitude -o Aptitude::Delete-Unused=1 install -y -q \
 && rm -rf /var/lib/apt/lists/*
 
 # copy supervisord.conf file
@@ -82,9 +75,9 @@ COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ./ros_entrypoint.sh /
 
 # set user ros and sudo
-RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros
-RUN usermod -a -G dialout ros
-RUN echo "ros ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_aptget
+RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros \
+  && usermod -a -G dialout ros \
+  && echo "ros ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_aptget
 
 # switch to user ros, but the HOME is still /, not /home/ros
 USER ros
