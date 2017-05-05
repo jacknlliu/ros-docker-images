@@ -23,7 +23,7 @@ RUN aptitude install -y -q -R ros-kinetic-gazebo-ros-control \
 # install fast inverse kinematics module
 && aptitude install -y -q -R ros-kinetic-katana-moveit-ikfast-plugin  ros-kinetic-trac-ik-lib ros-kinetic-trac-ik-kinematics-plugin
 
-# apt-get autoclean
+# aptitude clean
 RUN aptitude clean -y -q \
-&& sudo aptitude -o Aptitude::Delete-Unused=1 install -y -q \
+&& aptitude -o Aptitude::Delete-Unused=1 install -y -q \
 && rm -rf /var/lib/apt/lists/*

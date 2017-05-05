@@ -63,9 +63,9 @@ RUN aptitude install -y -q -R ros-indigo-moveit-full \
 # install orocos rtt components
     && aptitude install -y -q -R ros-indigo-orocos-kdl ros-indigo-rtt ros-indigo-rtt-*
 
-# apt-get autoclean
+# aptitude clean
 RUN aptitude clean -y -q \
-&& sudo aptitude -o Aptitude::Delete-Unused=1 install -y -q \
+&& aptitude -o Aptitude::Delete-Unused=1 install -y -q \
 && rm -rf /var/lib/apt/lists/*
 
 # copy supervisord.conf file

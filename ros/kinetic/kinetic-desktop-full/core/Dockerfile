@@ -42,7 +42,7 @@ RUN aptitude install -y -q -R build-essential gdb \
 # install amd graphics open source driver
 && aptitude install -y -q -R mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
 
-# apt-get autoclean
+# aptitude clean
 RUN aptitude clean -y -q \
-&& sudo aptitude -o Aptitude::Delete-Unused=1 install -y -q \
+&& aptitude -o Aptitude::Delete-Unused=1 install -y -q \
 && rm -rf /var/lib/apt/lists/*
