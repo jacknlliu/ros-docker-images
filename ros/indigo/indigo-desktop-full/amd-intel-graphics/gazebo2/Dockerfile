@@ -54,6 +54,7 @@ RUN aptitude install -y -q -R libgl1-mesa-glx libgl1-mesa-dri \
 RUN aptitude install -y -q -R ros-indigo-moveit-full \
     ros-indigo-gazebo-ros-control \
     ros-indigo-ros-controllers \
+    ros-indigo-controller-manager \
     ros-indigo-rqt-controller-manager \
     ros-indigo-ur-description \
     ros-indigo-camera-calibration \
@@ -61,7 +62,7 @@ RUN aptitude install -y -q -R ros-indigo-moveit-full \
     ros-indigo-camera-info-manager \
     \
 # install orocos rtt components
-    && aptitude install -y -q -R ros-indigo-orocos-kdl ros-indigo-rtt ros-indigo-rtt-*
+    && aptitude install -y -q -R ros-indigo-orocos-kdl ros-indigo-rtt ~nros-indigo-rtt-*
 
 # aptitude clean
 RUN aptitude clean -y -q \

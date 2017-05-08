@@ -1,101 +1,74 @@
-FROM ubuntu:trusty
+FROM ubuntu:14.04
 
 MAINTAINER Jack Liu jacknlliu@gmail.com
 
 # setup environment
+ENV DEBIAN_FRONTEND noninteractive
+ENV ROS_DISTRO indigo
+
+# setup locale
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 
 # setup sources.list
-RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list
-
+RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list \
+\
 # setup keys
-RUN apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net --recv-key 0xB01FA116
-
-# update the repository
-RUN apt-get update
-
-# install ros packages
-ENV ROS_DISTRO indigo
-RUN apt-get install -y ros-indigo-desktop-full=1.1.4-0*
-
-# rosdep init
-RUN rosdep init
-
-# enables you to easily download many source trees for ROS packages with one command
-RUN apt-get install -y python-rosinstall
+    && apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 \
+\
+# update the repository and install ros packages
+    && apt-get update -y \
+    && apt-get install -y -q --no-install-recommends apt-transport-https aptitude \
+    && aptitude install -y -q -R ros-indigo-desktop-full python-rosinstall \
+    && rosdep init
 
 # install additional system packages and ros packages
 # update gazebo2.2 to gazebo7
-RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/gazebo-latest.list
-
-RUN curl http://packages.osrfoundation.org/gazebo.key |apt-key add -
-
-RUN apt-get remove -y gazebo2
-
-RUN apt-get update && apt-get install -y gazebo7
-
-# download gazebo models
-RUN mkdir -p /ros_data/gazebo
-RUN cd /ros_data/gazebo/ && hg clone https://bitbucket.org/osrf/gazebo_models
-
-# chmod gazebo models directory
-RUN chmod -R 777 /ros_data/gazebo/gazebo_models
-
-# install ros related components
-RUN apt-get install -y ros-indigo-moveit-full \
-    ros-indigo-gazebo7-ros-pkgs \
-    ros-indigo-gazebo7-ros-control \
-    ros-indigo-ros-controllers \
-    ros-indigo-rqt-controller-manager \
-    ros-indigo-ur-description
-
-# install orocos rtt components
-RUN apt-get install -y ros-indigo-rtt ros-indigo-rtt-*
-
+RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/gazebo-latest.list \
+    && curl http://packages.osrfoundation.org/gazebo.key |apt-key add - \
+    && aptitude update -y -q \
+    && aptitude remove -y -q gazebo2 \
+    && aptitude install -y -q -R gazebo7
 
 # install essential tools
-RUN apt-get install -y  bash-completion wget vim git terminator
-
+RUN aptitude install -y -q -R  bash-completion wget vim git terminator supervisor xauth openssh-server sudo \
+    \
 # install additional build tool
-RUN apt-get install -y build-essential gdb
-
+    && aptitude install -y -q -R build-essential gdb \
+    \
 # install IDE essential packages
-RUN apt-get install -y mesa-common-dev libglu1-mesa-dev libfontconfig1
-
-# install Qt from source codes
-# COPY ./qt5-installer.sh  /
-# RUN chmod a+x /qt5-installer.sh
-# RUN /bin/bash -c "source /qt5-installer.sh"
-# RUN rm -f /qt5-installer.sh
-
-# install Qt plugin
-# RUN apt-get install -y qtdeclarative5-qtquick2-plugin
-
-# install ros qtcreator plugin
-# RUN apt-get install -y software-properties-common python-software-properties
-# RUN add-apt-repository -y ppa:beineri/opt-qt57-trusty
-# RUN add-apt-repository -y ppa:levi-armstrong/ppa
-# RUN apt-get update && apt-get install -y  qt57creator-plugin-ros
-
-# install ssh and sudo
-RUN apt-get install -y supervisor openssh-server  sudo
-
-RUN mkdir -p /var/run/sshd
-RUN echo "ForwardX11Trusted yes" >> /etc/ssh/ssh_config
+    && aptitude install -y -q -R mesa-common-dev libglu1-mesa-dev libfontconfig1 qt5-default qtcreator qtdeclarative5-qtquick2-plugin \
+    \
+# setup ssh
+    && mkdir -p /var/run/sshd && echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
 
 # install intel graphics driver
-RUN apt-get -y install libgl1-mesa-glx libgl1-mesa-dri
-
+RUN aptitude install -y -q -R libgl1-mesa-glx libgl1-mesa-dri \
+    \
 # install amd graphics open source driver
-RUN apt-get install -y mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
-
+    && aptitude install -y -q -R mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils \
+    \
 # we should fix AMD graphics driver with image driver extension not found in ubuntu 14.04.2, refrence: https://wiki.ubuntu.com/Kernel/LTSEnablementStack#Ubuntu_14.04_LTS_-_Trusty_Tahr
-RUN apt-get install -y -q --no-install-recommends linux-generic-lts-xenial xserver-xorg-core-lts-xenial xserver-xorg-lts-xenial xserver-xorg-video-all-lts-xenial xserver-xorg-input-all-lts-xenial libwayland-egl1-mesa-lts-xenial
+    && aptitude install -y -q -R linux-generic-lts-xenial xserver-xorg-core-lts-xenial xserver-xorg-lts-xenial xserver-xorg-video-all-lts-xenial xserver-xorg-input-all-lts-xenial libwayland-egl1-mesa-lts-xenial
 
-# apt-get autoclean
-RUN apt-get autoclean -y \
-&& apt-get autoremove -y \
+# install ros related components
+RUN aptitude install -y -q -R ros-indigo-moveit-full \
+    ros-indigo-gazebo7-ros-control \
+    ros-indigo-gazebo7-ros-pkgs \
+    ros-indigo-ros-controllers \
+    ros-indigo-controller-manager \
+    ros-indigo-rqt-controller-manager \
+    ros-indigo-ur-description \
+    ros-indigo-camera-calibration \
+    ros-indigo-camera-calibration-parsers \
+    ros-indigo-camera-info-manager \
+    \
+# install orocos rtt components
+    && aptitude install -y -q -R ros-indigo-orocos-kdl ros-indigo-rtt ~nros-indigo-rtt-*
+
+# aptitude clean
+RUN aptitude clean -y -q \
+&& aptitude -o Aptitude::Delete-Unused=1 install -y -q \
 && rm -rf /var/lib/apt/lists/*
 
 # copy supervisord.conf file
@@ -105,25 +78,33 @@ COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ./ros_entrypoint.sh /
 
 # set user ros and sudo
-RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros
-RUN usermod -a -G dialout ros
-RUN echo "ros ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_aptget
+RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros \
+  && usermod -a -G dialout ros \
+  && echo "ros ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_aptget
 
 # switch to user ros, but the HOME is still /, not /home/ros
 USER ros
 
 # setup ros env
-RUN HOME=/home/ros rosdep update
-RUN echo "export QT_X11_NO_MITSHM=1" >> /home/ros/.bashrc
-RUN echo "export HOME=/home/ros" >> /home/ros/.bashrc
-RUN echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
-
-# link to ros user home directory
-RUN mkdir -p /home/ros/.gazebo/ && sudo ln -s /ros_data/gazebo/gazebo_models /home/ros/.gazebo/models
+RUN HOME=/home/ros rosdep update && \
+echo "export QT_X11_NO_MITSHM=1" >> /home/ros/.bashrc && \
+echo "export HOME=/home/ros" >> /home/ros/.bashrc && \
+echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
 
 # configure Qt
 RUN mkdir -p /home/ros/.config/QtProject
+
+USER root
 COPY ./QtCreator.ini  /home/ros/.config/QtProject/
+RUN chown -R ros:ros  /home/ros/.config/QtProject/
+
+# config gazebo volume
+RUN mkdir -p /home/ros/.gazebo/models && chown -R ros:ros /home/ros/.gazebo
+
+# share this volume with other containers from this image
+VOLUME ["/home/ros/.gazebo/models"]
+
+USER ros
 
 CMD ["bash"]
 ENTRYPOINT ["/ros_entrypoint.sh"]
