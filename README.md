@@ -55,11 +55,11 @@ Just scan the following QR code using [Alipay](https://play.google.com/store/app
 
 # TODO List
 - [ ] add NVIDIA driver Installation instruction
-- [ ] update ros indigo image
+- [x] update ros indigo image
 - [ ] add robot grasping standalone image
 - [ ] update demo gif picture with robot grasping task
 - [ ] add Chinese document
-- [ ] add RoboWare IDE
+- [x] add RoboWare IDE
 - [ ] add reinforcement learning libraries, including rllab
 - [ ] add machine learning libraries
 - [ ] add deep learning, including tensorflow

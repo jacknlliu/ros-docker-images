@@ -12,10 +12,10 @@ ENV LANG en_US.UTF-8
 
 # setup sources.list
 RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list \
-\
+    \
 # setup keys
     && apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 \
-\
+    \
 # update the repository and install ros packages
     && apt-get update -y \
     && apt-get install -y -q --no-install-recommends apt-transport-https aptitude \
@@ -66,10 +66,17 @@ RUN aptitude install -y -q -R ros-indigo-moveit-full \
 # install orocos rtt components
     && aptitude install -y -q -R ros-indigo-orocos-kdl ros-indigo-rtt ~nros-indigo-rtt-*
 
+# install RoboWare
+RUN aptitude install -y -q -R  python-pip clang \
+    && export ROBOWAREVERSION="0.5.1-1493340874"  \
+    && curl https://github.com/tonyrobotics/RoboWare/raw/master/roboware-studio_${ROBOWAREVERSION}_amd64.deb -o roboware_amd64.deb \
+    && chmod a+x roboware_amd64.deb && dpkg -i --force roboware_amd64.deb \
+    && rm -f roboware_amd64.deb
+
 # aptitude clean
 RUN aptitude clean -y -q \
-&& aptitude -o Aptitude::Delete-Unused=1 install -y -q \
-&& rm -rf /var/lib/apt/lists/*
+    && aptitude -o Aptitude::Delete-Unused=1 install -y -q \
+    && rm -rf /var/lib/apt/lists/*
 
 # copy supervisord.conf file
 COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -79,8 +86,8 @@ COPY ./ros_entrypoint.sh /
 
 # set user ros and sudo
 RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros \
-  && usermod -a -G dialout ros \
-  && echo "ros ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_aptget
+    && usermod -a -G dialout ros \
+    && echo "ros ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_aptget
 
 # switch to user ros, but the HOME is still /, not /home/ros
 USER ros
