@@ -1,10 +1,10 @@
 # ros-docker-images
 
-[![](https://images.microbadger.com/badges/image/lmaths/ros.svg)](https://microbadger.com/images/lmaths/ros "lmaths/ros docker images")
+[![](https://images.microbadger.com/badges/image/jacknlliu/ros.svg)](https://microbadger.com/images/jacknlliu/ros "jacknlliu/ros docker images")
 
 ![docker startup demo](https://raw.githubusercontent.com/jacknlliu/ros-docker-images/master/resources/ur5_demo.gif)
 
-[ROS desktop-full docker images](https://hub.docker.com/r/lmaths/ros/) with Qt C++ debug tool-chain for Fedora and other Linux users who do not use Ubuntu.
+[ROS desktop-full docker images](https://hub.docker.com/r/jacknlliu/ros/) with Qt C++ debug tool-chain for Fedora and other Linux users who do not use Ubuntu.
 
 This project aims to build an All-in-One development environment for robot learning including robotics and deep reinforcement learning and a portable platform for intelligent robot applications.
 
@@ -20,9 +20,9 @@ This project aims to build an All-in-One development environment for robot learn
 # Usage
 - Pull docker image
 ```
-$ docker pull lmaths/ros:kinetic-ide
+$ docker pull jacknlliu/ros:kinetic-ide
 ```
-See it on [docker hub](https://hub.docker.com/r/lmaths/ros/).
+See it on [docker hub](https://hub.docker.com/r/jacknlliu/ros/).
 
 
 - Run
@@ -35,8 +35,11 @@ docker run --privileged  \
  --volume="/home/<your_user_name>/Workspace:/data:rw"  \
  --volume="/path/to/gazebo_models:/home/ros/.gazebo/models:rw"  \
  --name="ros_kinetic"  \
- lmaths/ros:kinetic-ide terminator
+ jacknlliu/ros:kinetic-ide terminator
 ```
+where `/home/<your_user_name>/Workspace` defines your workspace according to your own workspace to share between your host and docker container,
+
+and `/path/to/gazebo_models` defines your gazebo models directory path.
 
 
 # Pay What You Want

@@ -1,4 +1,4 @@
-FROM lmaths/ros:kinetic-extensions
+FROM jacknlliu/ros:kinetic-extensions
 
 MAINTAINER Jack Liu jacknlliu@gmail.com
 
