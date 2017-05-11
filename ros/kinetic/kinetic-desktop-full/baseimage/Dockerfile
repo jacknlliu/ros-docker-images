@@ -82,7 +82,7 @@ RUN mkdir -p /var/run/sshd && echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
 
 # copy entrypoint file
 COPY ./scripts/ros_entrypoint.sh /
-COPY ./scripts/containerinit.sh /etc/rc.local/
+COPY ./scripts/containerinit.sh /etc/my_init.d/
 RUN chmod +x /etc/rc.local/containerinit.sh
 
 # set user ros and sudo
