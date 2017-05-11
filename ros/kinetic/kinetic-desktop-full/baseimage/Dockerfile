@@ -5,7 +5,8 @@ MAINTAINER Jack Liu <jacknlliu@gmail.com>
 # setup environment
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -y && apt-get install -y -q --no-install-recommends apt-transport-https aptitude locales && locale-gen en_US.UTF-8
+RUN apt-get update -y && apt-get upgrade -y -q --no-install-recommends -o Dpkg::Options::="--force-confold"  \
+&& apt-get install -y -q --no-install-recommends apt-transport-https aptitude locales && locale-gen en_US.UTF-8
 
 ENV LANG en_US.UTF-8
 
