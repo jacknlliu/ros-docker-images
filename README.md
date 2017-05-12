@@ -67,7 +67,7 @@ Just scan the following QR code using [Alipay](https://play.google.com/store/app
 
 
 # Known Issues and Limitations
-- It will be a large image.
+- It will be a large image, and will have many large layers to reduce the number of layers in whole image.
 - common issues about NVIDIA GPU driver
 
 

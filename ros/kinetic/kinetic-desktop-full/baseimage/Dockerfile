@@ -83,7 +83,7 @@ RUN mkdir -p /var/run/sshd && echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
 # copy entrypoint file
 COPY ./scripts/ros_entrypoint.sh /
 COPY ./scripts/containerinit.sh /etc/my_init.d/
-RUN chmod +x /etc/my_init.d/containerinit.sh
+RUN chmod +x /ros_entrypoint.sh && chmod +x /etc/my_init.d/containerinit.sh
 
 # set user ros and sudo
 RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros && \
@@ -119,5 +119,5 @@ VOLUME ["/home/ros/.gazebo/models"]
 
 USER ros
 
-CMD ["/sbin/my_init"]
-ENTRYPOINT ["/ros_entrypoint.sh"]
+ENTRYPOINT ["/sbin/my_init", "--", "/ros_entrypoint.sh"]
+CMD ["bash"]
