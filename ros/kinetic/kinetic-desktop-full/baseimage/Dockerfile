@@ -119,5 +119,8 @@ VOLUME ["/home/ros/.gazebo/models"]
 
 USER ros
 
+# cd /home/ros default
+WORKDIR /home/ros
+
 ENTRYPOINT ["/sbin/my_init", "--", "/ros_entrypoint.sh"]
 CMD ["bash"]
