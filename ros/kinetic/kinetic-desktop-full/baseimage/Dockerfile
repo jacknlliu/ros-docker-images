@@ -103,6 +103,11 @@ RUN HOME=/home/ros rosdep update  \
 RUN mkdir -p /home/ros/.config/QtProject
 
 USER root
+
+# redefine environment variables for my_init
+RUN echo "/home/ros" > /etc/container_environment/HOME \
+    && echo "ros"  > /etc/container_environment/USER
+
 COPY ./config/QtCreator.ini  /home/ros/.config/QtProject/
 RUN chown -R ros:ros  /home/ros/.config/QtProject/
 
@@ -113,10 +118,6 @@ RUN mkdir -p /home/ros/.gazebo/models && chown -R ros:ros /home/ros/.gazebo
 VOLUME ["/home/ros/.gazebo/models"]
 
 USER ros
-
-# redefine environment variables for my_init
-RUN echo "/home/ros" > /etc/container_environment/HOME \
-    && echo "ros"  > /etc/container_environment/USER
 
 CMD ["/sbin/my_init"]
 ENTRYPOINT ["/ros_entrypoint.sh"]
