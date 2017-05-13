@@ -117,10 +117,13 @@ RUN mkdir -p /home/ros/.gazebo/models && chown -R ros:ros /home/ros/.gazebo
 # share this volume with other containers from this image
 VOLUME ["/home/ros/.gazebo/models"]
 
+# must run /sbin/my_init with root user
+ENTRYPOINT ["/sbin/my_init", "--", "/ros_entrypoint.sh"]
+
 USER ros
 
 # cd /home/ros default
 WORKDIR /home/ros
 
-ENTRYPOINT ["/sbin/my_init", "--", "/ros_entrypoint.sh"]
+
 CMD ["bash"]
