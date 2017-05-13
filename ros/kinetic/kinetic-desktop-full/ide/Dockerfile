@@ -39,6 +39,7 @@ RUN mkdir -p /home/ros/.gazebo/models && chown -R ros:ros /home/ros/.gazebo
 VOLUME ["/home/ros/.gazebo/models"]
 
 USER ros
+WORKDIR /home/ros
 
 CMD ["bash"]
 ENTRYPOINT ["/ros_entrypoint.sh"]
