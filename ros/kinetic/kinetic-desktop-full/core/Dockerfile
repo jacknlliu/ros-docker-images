@@ -5,7 +5,7 @@ MAINTAINER Jack Liu <jacknlliu@gmail.com>
 # setup environment
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -y && apt-get install -y -q --no-install-recommends apt-transport-https aptitude locales && locale-gen en_US.UTF-8
+RUN apt-get update -y && apt-get install -y -q --no-install-recommends apt-utils apt-transport-https aptitude locales && locale-gen en_US.UTF-8
 
 ENV LANG en_US.UTF-8
 
@@ -43,7 +43,7 @@ RUN aptitude install -y -q -R build-essential gdb \
     && aptitude install -y -q -R mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
 
 # install RoboWare
-RUN aptitude install -y -q -R  wget python-pip pylint clang libnss3 libnotify4 \
+RUN aptitude install -y -q -R  wget python-pip pylint clang libnss3 libnotify4  libxtst6 \
     && export ROBOWAREVERSION="0.5.1-1493340874"  \
     && wget https://github.com/tonyrobotics/RoboWare/raw/master/roboware-studio_${ROBOWAREVERSION}_amd64.deb -O roboware_amd64.deb \
     && chmod a+x roboware_amd64.deb && dpkg -i roboware_amd64.deb \
