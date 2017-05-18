@@ -19,17 +19,12 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources
     && apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116  \
     \
 # update the repository and install ros kinetic
-    && aptitude update -y -q && aptitude install -y -q -R ros-kinetic-desktop-full python-rosinstall \
+    && aptitude update -y -q && aptitude install -y -q -R ros-kinetic-desktop-full python-rosinstall  \
     \
 # rosdep init
     && rosdep init
 
 # install additional system packages and ros packages
-# update gazebo
-RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu xenial main" > /etc/apt/sources.list.d/gazebo-latest.list  \
-    && curl http://packages.osrfoundation.org/gazebo.key |apt-key add -  \
-    && aptitude update -y -q && aptitude install -y -q -R gazebo7
-
 # install additional build tool
 RUN aptitude install -y -q -R build-essential gdb \
     \
@@ -52,4 +47,5 @@ RUN aptitude install -y -q -R  wget python-pip pylint clang libnss3 libnotify4  
 # aptitude clean
 RUN aptitude clean -y -q \
     && aptitude -o Aptitude::Delete-Unused=1 install -y -q \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*  \
+    && rm -rf /tmp/* /var/tmp/*

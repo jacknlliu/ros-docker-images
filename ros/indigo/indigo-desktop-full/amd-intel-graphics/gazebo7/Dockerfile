@@ -76,7 +76,8 @@ RUN aptitude install -y -q -R  python-pip pylint clang libnss3 libnotify4 libxts
 # aptitude clean
 RUN aptitude clean -y -q \
     && aptitude -o Aptitude::Delete-Unused=1 install -y -q \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*  \
+    && rm -rf /tmp/* /var/tmp/*
 
 # copy supervisord.conf file
 COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -93,10 +94,8 @@ RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros \
 USER ros
 
 # setup ros env
-RUN HOME=/home/ros rosdep update && \
-echo "export QT_X11_NO_MITSHM=1" >> /home/ros/.bashrc && \
-echo "export HOME=/home/ros" >> /home/ros/.bashrc && \
-echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
+RUN HOME=/home/ros rosdep update \
+&& echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
 
 # configure Qt
 RUN mkdir -p /home/ros/.config/QtProject

@@ -75,7 +75,8 @@ RUN aptitude install -y -q -R ros-kinetic-gazebo-ros-control \
 # aptitude clean
 RUN aptitude clean -y -q \
     && aptitude -o Aptitude::Delete-Unused=1 install -y -q \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/* /var/tmp/*
 
 # config sshd
 RUN mkdir -p /var/run/sshd && echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
@@ -95,8 +96,6 @@ USER ros
 
 # setup ros env
 RUN HOME=/home/ros rosdep update  \
-    && echo "export QT_X11_NO_MITSHM=1" >> /home/ros/.bashrc  \
-    && echo "export HOME=/home/ros" >> /home/ros/.bashrc  \
     && echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
 
 # configure Qt
@@ -117,13 +116,9 @@ RUN mkdir -p /home/ros/.gazebo/models && chown -R ros:ros /home/ros/.gazebo
 # share this volume with other containers from this image
 VOLUME ["/home/ros/.gazebo/models"]
 
-# must run /sbin/my_init with root user
-ENTRYPOINT ["/sbin/my_init", "--", "/ros_entrypoint.sh"]
-
-USER ros
-
 # cd /home/ros default
 WORKDIR /home/ros
 
-
+# must run /sbin/my_init with root user
+ENTRYPOINT ["/sbin/my_init", "--", "setuser", "ros", "/ros_entrypoint.sh"]
 CMD ["bash"]
