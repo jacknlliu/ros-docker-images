@@ -21,8 +21,6 @@ USER ros
 
 # setup ros env
 RUN HOME=/home/ros rosdep update  \
-    && echo "export QT_X11_NO_MITSHM=1" >> /home/ros/.bashrc  \
-    && echo "export HOME=/home/ros" >> /home/ros/.bashrc  \
     && echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
 
 # configure Qt
@@ -39,6 +37,7 @@ RUN mkdir -p /home/ros/.gazebo/models && chown -R ros:ros /home/ros/.gazebo
 VOLUME ["/home/ros/.gazebo/models"]
 
 USER ros
+WORKDIR /home/ros
 
 CMD ["bash"]
 ENTRYPOINT ["/ros_entrypoint.sh"]
