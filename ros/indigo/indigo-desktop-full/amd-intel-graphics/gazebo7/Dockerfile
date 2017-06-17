@@ -19,7 +19,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc
 # update the repository and install ros packages
     && apt-get update -y \
     && apt-get install -y -q --no-install-recommends apt-transport-https aptitude \
-    && aptitude install -y -q -R ros-indigo-desktop-full python-rosinstall \
+    && aptitude install -y -q -R ros-indigo-desktop-full python-rosinstall ninja-build \
     && rosdep init
 
 # install additional system packages and ros packages
@@ -31,7 +31,7 @@ RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu $(lsb_release -sc)
     && aptitude install -y -q -R gazebo7
 
 # install essential tools
-RUN aptitude install -y -q -R  bash-completion wget vim git terminator supervisor xauth openssh-server sudo \
+RUN aptitude install -y -q -R  bash-completion wget vim git terminator supervisor xauth openssh-server sudo pcmanfm \
     \
 # install additional build tool
     && aptitude install -y -q -R build-essential gdb \

@@ -19,7 +19,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources
     && apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116  \
     \
 # update the repository and install ros kinetic
-    && aptitude update -y -q && aptitude install -y -q -R ros-kinetic-desktop-full python-rosinstall \
+    && aptitude update -y -q && aptitude install -y -q -R ros-kinetic-desktop-full python-rosinstall ninja-build \
     \
 # rosdep init
     && rosdep init

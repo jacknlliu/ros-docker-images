@@ -20,7 +20,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources
     && apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116  \
     \
 # update the repository and install ros kinetic
-    && aptitude update -y -q && aptitude install -y -q -R ros-kinetic-desktop-full python-rosinstall \
+    && aptitude update -y -q && aptitude install -y -q -R ros-kinetic-desktop-full python-rosinstall ninja-build \
     \
 # rosdep init
     && rosdep init
@@ -47,7 +47,7 @@ RUN aptitude install -y -q -R  wget python-pip pylint clang libnss3 libnotify4 l
 
 
 # install essential tools, ssh sever, sudo
-RUN aptitude update -y -q && aptitude install -y -q -R  bash-completion wget vim git iputils-ping terminator xauth openssh-server sudo
+RUN aptitude update -y -q && aptitude install -y -q -R  bash-completion wget vim git iputils-ping terminator xauth openssh-server sudo pcmanfm
 
 # install ros related components
 RUN aptitude install -y -q -R ros-kinetic-gazebo-ros-control \
