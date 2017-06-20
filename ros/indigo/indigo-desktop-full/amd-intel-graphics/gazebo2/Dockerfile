@@ -60,6 +60,8 @@ RUN aptitude install -y -q -R ros-indigo-moveit-full \
     ros-indigo-camera-calibration \
     ros-indigo-camera-calibration-parsers \
     ros-indigo-camera-info-manager \
+    ros-indigo-video-stream-opencv \
+    ros-indigo-find-object-2d \
     \
 # install orocos rtt components
     && aptitude install -y -q -R ros-indigo-orocos-kdl ros-indigo-rtt ~nros-indigo-rtt-*

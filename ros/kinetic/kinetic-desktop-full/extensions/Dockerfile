@@ -21,7 +21,10 @@ RUN aptitude install -y -q -R ros-kinetic-gazebo-ros-control \
     && aptitude install -y -q -R ros-kinetic-calibration-estimation ros-kinetic-kdl-parser-py  \
     \
 # install fast inverse kinematics module
-    && aptitude install -y -q -R ros-kinetic-katana-moveit-ikfast-plugin  ros-kinetic-trac-ik-lib ros-kinetic-trac-ik-kinematics-plugin
+    && aptitude install -y -q -R ros-kinetic-katana-moveit-ikfast-plugin  ros-kinetic-trac-ik-lib ros-kinetic-trac-ik-kinematics-plugin \
+    \
+# install video opencv driver and find_object application
+    && aptitude install -y -q -R ros-kinetic-video-stream-opencv ros-kinetic-find-object-2d
 
 # aptitude clean
 RUN aptitude clean -y -q \
