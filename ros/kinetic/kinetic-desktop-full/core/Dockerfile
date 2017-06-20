@@ -25,11 +25,6 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources
     && rosdep init
 
 # install additional system packages and ros packages
-# update gazebo
-RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu xenial main" > /etc/apt/sources.list.d/gazebo-latest.list  \
-    && curl http://packages.osrfoundation.org/gazebo.key |apt-key add -  \
-    && aptitude update -y -q && aptitude install -y -q -R gazebo7
-
 # install additional build tool
 RUN aptitude install -y -q -R build-essential gdb \
     \

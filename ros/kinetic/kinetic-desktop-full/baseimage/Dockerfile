@@ -61,6 +61,9 @@ RUN aptitude install -y -q -R ros-kinetic-gazebo-ros-control \
 # install Barret_Hand related components
     && aptitude install -y -q -R libignition-math2-dev libignition-common-dev ros-kinetic-barrett-hand ros-kinetic-barrett-hand-sim \
     \
+# install force dimension device driver and related components
+    && aptitude install -y -q -R libusb-1.0-0 freeglut3 freeglut3-dev \
+    \
 # install kinematics module
     && aptitude install -y -q -R ros-kinetic-calibration-estimation ros-kinetic-kdl-parser-py  \
     \

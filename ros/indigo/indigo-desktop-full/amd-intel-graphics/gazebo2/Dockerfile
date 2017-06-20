@@ -63,6 +63,9 @@ RUN aptitude install -y -q -R ros-indigo-moveit-full \
     ros-indigo-video-stream-opencv \
     ros-indigo-find-object-2d \
     \
+# install force dimension device driver and related components
+    && aptitude install -y -q -R libusb-1.0-0 freeglut3 freeglut3-dev \
+    \
 # install orocos rtt components
     && aptitude install -y -q -R ros-indigo-orocos-kdl ros-indigo-rtt ~nros-indigo-rtt-*
 
