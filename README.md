@@ -10,11 +10,12 @@ This project aims to build an All-in-One development environment for robot learn
 
 
 # Features
-- integrated with open source AMD and Intel GPU driver
+- integrated with open source AMD and Intel GPU driver, and NVIDIA driver manually installation instruction
 - support `gazebo` simulation
 - including `QtCreator` as ROS IDE which supports build and **debug** your ROS packages
 - including [terminator](http://gnometerminator.blogspot.com/p/introduction.html), a multi-windows supported free terminal emulator
-- including [ros desktop-full](http://wiki.ros.org/kinetic/Installation/Ubuntu) packages, support `indigo` and `kinetic` version.
+- including [ros-desktop-full](http://wiki.ros.org/kinetic/Installation/Ubuntu) packages, currently support `indigo` and `kinetic` version
+- including a light weight file manager GUI application [pcmanfm](http://pcmanfm.sourceforge.net/)
 
 
 # Usage
@@ -37,9 +38,11 @@ docker run --privileged  \
  --name="ros_kinetic"  \
  jacknlliu/ros:kinetic-ide terminator
 ```
-where `/home/<your_user_name>/Workspace` defines your workspace according to your own workspace to share between your host and docker container,
 
-and `/path/to/gazebo_models` defines your gazebo models directory path.
+  **NOTE:**
+   `/home/<your_user_name>/Workspace` defines your workspace according to your own workspace to share between your host and docker container,
+
+  `/path/to/gazebo_models` defines your gazebo models directory path.
 
 
 # Pay What You Want
@@ -54,13 +57,13 @@ Just scan the following QR code using [Alipay](https://play.google.com/store/app
 
 
 # TODO List
-- [ ] add NVIDIA driver Installation instruction
+- [ ] add NVIDIA driver Installation instruction. This work has been done, and it will move to release after some more polish. Open An issue and a wiki page for tracking.
 - [x] update ros indigo image
 - [ ] add robot grasping standalone image
-- [ ] update demo gif picture with robot grasping task
+- [ ] update demo gif picture with robot grasping task. This is a long term item.
 - [ ] add Chinese document
 - [x] add RoboWare IDE
-- [ ] add reinforcement learning libraries, including rllab
+- [ ] add reinforcement learning libraries, including rllab. For machine learning part, it will be another standalone image, and it will be a module network application with ROS middleware.
 - [ ] add machine learning libraries
 - [ ] add deep learning, including tensorflow
 - [ ] add mobile robot standalone image for robot SLAM and robot vision research
