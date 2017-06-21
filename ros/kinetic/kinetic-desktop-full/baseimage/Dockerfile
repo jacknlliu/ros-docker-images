@@ -80,7 +80,8 @@ RUN aptitude clean -y -q \
     && rm -rf /tmp/* /var/tmp/*
 
 # config sshd
-RUN mkdir -p /var/run/sshd && echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
+RUN mkdir -p /var/run/sshd && echo "X11UseLocalhost no" >> /etc/ssh/sshd_config \
+    &&  rm -f /etc/service/sshd/down  && /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 # copy entrypoint file
 COPY ./scripts/ros_entrypoint.sh /
@@ -103,10 +104,6 @@ RUN HOME=/home/ros rosdep update  \
 RUN mkdir -p /home/ros/.config/QtProject
 
 USER root
-
-# redefine environment variables for my_init
-RUN echo "/home/ros" > /etc/container_environment/HOME \
-    && echo "ros"  > /etc/container_environment/USER
 
 COPY ./config/QtCreator.ini  /home/ros/.config/QtProject/
 RUN chown -R ros:ros  /home/ros/.config/QtProject/
