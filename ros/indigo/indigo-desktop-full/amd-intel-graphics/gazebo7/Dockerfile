@@ -27,8 +27,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc
 RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/gazebo-latest.list \
     && curl http://packages.osrfoundation.org/gazebo.key |apt-key add - \
     && aptitude update -y -q \
-    && aptitude remove -y -q gazebo2 \
-    && aptitude install -y -q -R gazebo7
+    && aptitude remove -y -q gazebo2
 
 # install essential tools
 RUN aptitude install -y -q -R  bash-completion wget vim git terminator supervisor xauth openssh-server sudo pcmanfm \
@@ -53,8 +52,6 @@ RUN aptitude install -y -q -R libgl1-mesa-glx libgl1-mesa-dri \
 
 # install ros related components
 RUN aptitude install -y -q -R ros-indigo-moveit-full \
-    ros-indigo-gazebo7-ros-control \
-    ros-indigo-gazebo7-ros-pkgs \
     ros-indigo-ros-controllers \
     ros-indigo-controller-manager \
     ros-indigo-rqt-controller-manager \
@@ -70,6 +67,8 @@ RUN aptitude install -y -q -R ros-indigo-moveit-full \
     \
 # install orocos rtt components
     && aptitude install -y -q -R ros-indigo-orocos-kdl ros-indigo-rtt ~nros-indigo-rtt-*
+
+RUN aptitude install -y -q -R  ros-indigo-gazebo7-ros-control ros-indigo-gazebo7-ros-pkgs
 
 # install RoboWare
 RUN aptitude install -y -q -R  python-pip pylint clang libnss3 libnotify4 \
