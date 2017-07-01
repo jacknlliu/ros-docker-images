@@ -44,6 +44,14 @@ docker run --privileged  \
 
   `/path/to/gazebo_models` defines your gazebo models directory path.
 
+  Run the above command just in the first time, later please just run the container with its name, this will keep things easy.
+```
+$ docker start ros_kinetic
+```
+
+- Troubleshooting with NVIDIA video card
+  If you use NVIDIA video card, you should follow this [instruction](https://github.com/jacknlliu/ros-docker-images/wiki).
+
 
 # Pay What You Want
 
@@ -57,7 +65,8 @@ Just scan the following QR code using [Alipay](https://play.google.com/store/app
 
 
 # TODO List
-- [ ] add NVIDIA driver Installation instruction. This work has been done, and it will move to release after some more polish. Open An issue and a wiki page for tracking.
+- [x] add NVIDIA driver Installation instruction. ~~This work has been done, and it will move to release after some more polish.~~ Open An issue and a wiki page for tracking.
+- [ ] add nvidia driver installation tips in docker container startup.
 - [x] update ros indigo image
 - [ ] add robot grasping standalone image
 - [ ] update demo gif picture with robot grasping task. This is a long term item.
