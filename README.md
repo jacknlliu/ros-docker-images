@@ -21,7 +21,7 @@ This project aims to build an All-in-One development environment for robot learn
 # Usage
 - Pull docker image
 ```
-$ docker pull jacknlliu/ros:kinetic-ide
+$ docker pull jacknlliu/ros:kinetic-ide-init
 ```
 See it on [docker hub](https://hub.docker.com/r/jacknlliu/ros/).
 
@@ -36,7 +36,7 @@ docker run --privileged  \
  --volume="/home/<your_user_name>/Workspace:/data:rw"  \
  --volume="/path/to/gazebo_models:/home/ros/.gazebo/models:rw"  \
  --name="ros_kinetic"  \
- jacknlliu/ros:kinetic-ide terminator
+ jacknlliu/ros:kinetic-ide-init terminator
 ```
 
   **NOTE:**
