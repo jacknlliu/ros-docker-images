@@ -61,6 +61,7 @@ RUN aptitude install -y -q -R ros-indigo-moveit-full \
     ros-indigo-camera-info-manager \
     ros-indigo-video-stream-opencv \
     ros-indigo-find-object-2d \
+    libcgal-dev \
     \
 # install force dimension device driver and related components
     && aptitude install -y -q -R libusb-1.0-0 freeglut3 freeglut3-dev \

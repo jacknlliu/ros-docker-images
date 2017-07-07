@@ -5,13 +5,13 @@ MAINTAINER Jack Liu <jacknlliu@gmail.com>
 # setup environment
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -y && apt-get upgrade -y -q --no-install-recommends -o Dpkg::Options::="--force-confold"  \
-&& apt-get install -y -q --no-install-recommends apt-utils apt-transport-https aptitude locales && locale-gen en_US.UTF-8
-
 ENV LANG en_US.UTF-8
 
 # define ros distribution version
 ENV ROS_DISTRO kinetic
+
+RUN apt-get update -y && apt-get upgrade -y -q --no-install-recommends -o Dpkg::Options::="--force-confold"  \
+&& apt-get install -y -q --no-install-recommends apt-utils apt-transport-https aptitude locales && locale-gen en_US.UTF-8
 
 # setup sources.list
 RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources.list.d/ros-latest.list  \
@@ -71,7 +71,7 @@ RUN aptitude install -y -q -R ros-kinetic-gazebo-ros-control \
     && aptitude install -y -q -R ros-kinetic-katana-moveit-ikfast-plugin  ros-kinetic-trac-ik-lib ros-kinetic-trac-ik-kinematics-plugin \
     \
 # install video opencv driver and find_object application
-    && aptitude install -y -q -R ros-kinetic-video-stream-opencv ros-kinetic-find-object-2d
+    && aptitude install -y -q -R ros-kinetic-video-stream-opencv ros-kinetic-find-object-2d libcgal-dev  libcgal-qt5-dev
 
 # aptitude clean
 RUN aptitude clean -y -q \
