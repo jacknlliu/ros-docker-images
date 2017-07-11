@@ -47,7 +47,7 @@ RUN aptitude install -y -q -R  wget python-pip pylint clang libnss3 libnotify4 l
 
 
 # install essential tools, ssh sever, sudo
-RUN aptitude update -y -q && aptitude install -y -q -R  bash-completion wget vim git iputils-ping terminator xauth openssh-server sudo pcmanfm
+RUN aptitude update -y -q && aptitude install -y -q -R  bash-completion wget vim git iputils-ping iproute2 netcat terminator xauth openssh-server sudo pcmanfm
 
 # install ros related components
 RUN aptitude install -y -q -R ros-kinetic-gazebo-ros-control \
