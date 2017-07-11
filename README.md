@@ -29,8 +29,8 @@ See it on [docker hub](https://hub.docker.com/r/jacknlliu/ros/).
 - Run
 ```shell
 docker run --privileged  \
- --security-opt="label:disable"  \
- --security-opt seccomp:unconfined  \
+ --security-opt label=disable  \
+ --security-opt seccomp=unconfined  \
  --env="DISPLAY" --env QT_X11_NO_MITSHM=1  \
  --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw"  \
  --volume="/home/<your_user_name>/Workspace:/data:rw"  \
