@@ -29,7 +29,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources
 
 # install additional system packages and ros packages
 # install additional build tool
-RUN apt-get install -y -q --no-install-recommends build-essential gdb cmake
+RUN apt-get install -y -q --no-install-recommends build-essential gdb cmake tmux
 
 # install essential tools, ssh sever, sudo
 RUN apt-get install -y -q --no-install-recommends bash-completion wget vim git iputils-ping iproute2 netcat \

@@ -26,7 +26,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources
 
 # install additional system packages and ros packages
 # install additional build tool
-RUN aptitude install -y -q -R build-essential gdb \
+RUN aptitude install -y -q -R build-essential gdb tmux \
     \
 # install IDE essential packages and qt5, qtcreator, qtdeclarative5-qtquick2
     && aptitude install -y -q -R mesa-common-dev libglu1-mesa-dev libfontconfig1 qt5-default qtcreator qtdeclarative5-qtquick2-plugin \

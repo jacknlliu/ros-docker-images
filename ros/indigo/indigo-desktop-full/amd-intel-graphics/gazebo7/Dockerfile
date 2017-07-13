@@ -30,7 +30,7 @@ RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu $(lsb_release -sc)
     && aptitude remove -y -q gazebo2
 
 # install essential tools
-RUN aptitude install -y -q -R  bash-completion wget vim git iputils-ping iproute2 netcat terminator supervisor xauth openssh-server sudo pcmanfm \
+RUN aptitude install -y -q -R  bash-completion wget vim git iputils-ping iproute2 netcat tmux terminator supervisor xauth openssh-server sudo pcmanfm \
     \
 # install additional build tool
     && aptitude install -y -q -R build-essential gdb \
