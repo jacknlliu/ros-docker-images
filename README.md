@@ -49,7 +49,7 @@ docker run --privileged  \
 $ docker start ros_kinetic
 ```
 
-- Troubleshooting with NVIDIA video card
+- Troubleshooting with NVIDIA video card  
   If you use NVIDIA video card, you should follow this [instruction](https://github.com/jacknlliu/ros-docker-images/wiki).
 
 
