@@ -12,7 +12,7 @@ This project aims to build an All-in-One development environment for robot learn
 # Features
 - integrated with open source AMD and Intel GPU driver, and NVIDIA driver manually installation instruction
 - support `gazebo` simulation
-- including `QtCreator` as ROS IDE which supports build and **debug** your ROS packages
+- including `QtCreator` and [RoboWare](http://wiki.ros.org/IDEs#RoboWare_Studio) as ROS IDE which supports build and **debug** your ROS packages
 - including [terminator](http://gnometerminator.blogspot.com/p/introduction.html), a multi-windows supported free terminal emulator
 - including [ros-desktop-full](http://wiki.ros.org/kinetic/Installation/Ubuntu) packages, currently support `indigo` and `kinetic` version
 - including a light weight file manager GUI application [pcmanfm](http://pcmanfm.sourceforge.net/)
@@ -72,14 +72,14 @@ Just scan the following QR code using [Alipay](https://play.google.com/store/app
 - [ ] update demo gif picture with robot grasping task. This is a long term item.
 - [ ] add Chinese document
 - [x] add RoboWare IDE
-- [ ] add reinforcement learning libraries, including rllab. For machine learning part, it will be another standalone image, and it will be a module network application with ROS middleware.
-- [ ] add machine learning libraries
-- [ ] add deep learning, including tensorflow
+- [x] ~~add reinforcement learning libraries, including rllab. For machine learning part, it will be another standalone image, and it will be a module network application with ROS middleware.~~ A standalone image integrated tensorflow, opeai/roboschool, and ros base, see [here](https://hub.docker.com/r/jacknlliu/tensorflow-openai-ros/). Cheer!
+- [x] ~~add machine learning libraries~~
+- [x] ~~add deep learning, including tensorflow~~
 - [ ] add mobile robot standalone image for robot SLAM and robot vision research
 
 
 # Known Issues and Limitations
-- It will be a large image, and will have many large layers to reduce the number of layers in whole image.
+- It's a little large image.
 - common issues about NVIDIA GPU driver
 
 
