@@ -40,7 +40,7 @@ RUN aptitude install -y -q -R build-essential gdb \
 
 # install RoboWare
 RUN aptitude install -y -q -R  wget python-pip pylint clang libnss3 libnotify4 libxtst6 ~nlibgconf-2 \
-    && export ROBOWAREVERSION="0.6.0-1495845302"  \
+    && export ROBOWAREVERSION="0.7.0-1498718847"  \
     && wget https://github.com/tonyrobotics/RoboWare/raw/master/roboware-studio_${ROBOWAREVERSION}_amd64.deb -O roboware_amd64.deb \
     && chmod a+x roboware_amd64.deb && dpkg -i roboware_amd64.deb \
     && rm -f roboware_amd64.deb
@@ -62,7 +62,7 @@ RUN aptitude install -y -q -R ros-kinetic-gazebo-ros-control \
     && aptitude install -y -q -R libignition-math2-dev libignition-common-dev ros-kinetic-barrett-hand ros-kinetic-barrett-hand-sim \
     \
 # install force dimension device driver and related components
-    && aptitude install -y -q -R libusb-1.0-0 freeglut3 freeglut3-dev \
+    && aptitude install -y -q -R libusb-1.0-0 libusb-1.0-0-dev freeglut3 freeglut3-dev \
     \
 # install kinematics module
     && aptitude install -y -q -R ros-kinetic-calibration-estimation ros-kinetic-kdl-parser-py  \
