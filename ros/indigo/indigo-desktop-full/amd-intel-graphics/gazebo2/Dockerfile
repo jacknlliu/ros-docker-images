@@ -19,8 +19,11 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc
 # update the repository and install ros packages
     && apt-get update -y \
     && apt-get install -y -q --no-install-recommends apt-transport-https aptitude \
-    && aptitude install -y -q -R ros-indigo-desktop-full python-rosinstall ninja-build \
+    && aptitude install -y -q -R ros-indigo-desktop-full python-rosinstall ninja-build python3-pip \
     && rosdep init
+
+# install ros python3 support
+RUN pip3 install --no-cache-dir catkin-tools rospkg
 
 # install additional system packages and ros packages
 # update gazebo2.2 to gazebo2.2.5

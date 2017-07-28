@@ -19,10 +19,13 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources
     && apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116  \
     \
 # update the repository and install ros kinetic
-    && aptitude update -y -q && aptitude install -y -q -R ros-kinetic-desktop-full python-rosinstall ninja-build \
+    && aptitude update -y -q && aptitude install -y -q -R ros-kinetic-desktop-full python-rosinstall ninja-build python3-pip \
     \
 # rosdep init
     && rosdep init
+
+# install ros python3 support
+RUN pip3 install --no-cache-dir catkin-tools rospkg
 
 # install additional system packages and ros packages
 # install additional build tool
