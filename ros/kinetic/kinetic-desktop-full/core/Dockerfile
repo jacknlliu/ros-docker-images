@@ -41,7 +41,7 @@ RUN aptitude install -y -q -R build-essential gdb tmux \
     && aptitude install -y -q -R mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
 
 # install RoboWare
-RUN aptitude install -y -q -R  wget python-pip pylint clang libnss3 libnotify4 libxtst6 ~nlibgconf-2 \
+RUN aptitude install -y -q -R  wget python-pip pylint clang libxss1 libnss3 libnotify4 libxtst6 ~nlibgconf-2 \
     && export ROBOWAREVERSION="0.7.0-1498718847"  \
     && wget https://github.com/tonyrobotics/RoboWare/raw/master/roboware-studio_${ROBOWAREVERSION}_amd64.deb -O roboware_amd64.deb \
     && chmod a+x roboware_amd64.deb && dpkg -i roboware_amd64.deb \

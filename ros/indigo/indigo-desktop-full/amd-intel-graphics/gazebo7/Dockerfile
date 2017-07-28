@@ -75,7 +75,7 @@ RUN aptitude install -y -q -R ros-indigo-moveit-full \
 RUN aptitude install -y -q -R  ros-indigo-gazebo7-ros-control ros-indigo-gazebo7-ros-pkgs
 
 # install RoboWare
-RUN aptitude install -y -q -R  python-pip pylint clang libnss3 libnotify4 \
+RUN aptitude install -y -q -R  python-pip pylint clang libxss1 libnss3 libnotify4 \
     && export ROBOWAREVERSION="0.7.0-1498718847"  \
     && wget https://github.com/tonyrobotics/RoboWare/raw/master/roboware-studio_${ROBOWAREVERSION}_amd64.deb -O roboware_amd64.deb  \
     && chmod a+x roboware_amd64.deb && dpkg -i roboware_amd64.deb \
