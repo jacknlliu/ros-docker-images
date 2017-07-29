@@ -23,7 +23,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc
     && rosdep init
 
 # install ros python3 support
-RUN pip3 install --no-cache-dir catkin-tools rospkg
+RUN pip3 install --upgrade pip && pip3 install catkin-tools rospkg
 
 # install additional system packages and ros packages
 # update gazebo2.2 to gazebo7
