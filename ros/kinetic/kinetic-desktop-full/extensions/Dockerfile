@@ -2,11 +2,8 @@ FROM jacknlliu/ros:kinetic-core
 
 MAINTAINER Jack Liu <jacknlliu@gmail.com>
 
-# install essential tools, ssh sever, sudo
-RUN aptitude update -y -q && aptitude install -y -q -R  bash-completion wget vim git iputils-ping iproute2 netcat terminator supervisor xauth openssh-server sudo pcmanfm
-
 # install ros related components
-RUN aptitude install -y -q -R ros-kinetic-gazebo-ros-control \
+RUN aptitude update -y && aptitude install -y -q -R ros-kinetic-gazebo-ros-control \
     ros-kinetic-ros-controllers \
     ros-kinetic-rqt-controller-manager \
     ros-kinetic-moveit \
