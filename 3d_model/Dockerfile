@@ -16,7 +16,7 @@ COPY scripts/install_brd.py /opt/scripts/container/
 RUN chmod a+x /opt/scripts/container/install_brd.py
 
 USER ros
-RUN sudo -H blend -b /opt/scripts/container/install.blend --python /opt/scripts/container/install_brd.py
+RUN sudo -H blender -b /opt/scripts/container/install.blend --python /opt/scripts/container/install_brd.py
 
 # apt-get autoclean
 RUN apt-get autoclean -y \
