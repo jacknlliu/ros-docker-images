@@ -10,7 +10,7 @@ ENV LANG en_US.UTF-8
 # define ros distribution version
 ENV ROS_DISTRO kinetic
 
-RUN apt-get update -y && && apt-get upgrade -y -q --no-install-recommends -o Dpkg::Options::="--force-confold"  \
+RUN apt-get update -y && apt-get upgrade -y -q --no-install-recommends -o Dpkg::Options::="--force-confold"  \
     && apt-get install -y -q --no-install-recommends apt-transport-https aptitude locales && locale-gen en_US.UTF-8
 
 # setup sources.list
