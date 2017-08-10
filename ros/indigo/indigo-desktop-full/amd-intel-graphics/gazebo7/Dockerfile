@@ -19,8 +19,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc
 # update the repository and install ros packages
     && apt-get update -y \
     && apt-get install -y -q --no-install-recommends apt-transport-https aptitude \
-    && aptitude install -y -q -R ros-indigo-desktop-full python-rosinstall ninja-build python3-pip python3-setuptools \
-    && rosdep init
+    && aptitude install -y -q -R ros-indigo-desktop-full python-rosinstall ninja-build python3-pip python3-setuptools
 
 # install ros python3 support
 RUN aptitude install -y -q -R libyaml libyaml-dev libyaml-cpp libyaml-cpp-dev && pip3 install --upgrade pip && pip3 install catkin-tools rospkg
@@ -101,7 +100,7 @@ RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros \
 USER ros
 
 # setup ros env
-RUN HOME=/home/ros rosdep update && \
+RUN sudo rosdep init && rosdep update && \
 echo "export QT_X11_NO_MITSHM=1" >> /home/ros/.bashrc && \
 echo "export HOME=/home/ros" >> /home/ros/.bashrc && \
 echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
