@@ -1,6 +1,6 @@
 FROM jacknlliu/ros:kinetic-core
 
-MAINTAINER Jack Liu <jacknlliu@gmail.com>
+LABEL maintainer="Jack Liu <jacknlliu@gmail.com>"
 
 ENV DEBIAN_FRONTEND noninteractive
 

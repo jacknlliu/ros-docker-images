@@ -1,6 +1,6 @@
 FROM jacknlliu/ros:kinetic-core
 
-MAINTAINER Jack Liu <jacknlliu@gmail.com>
+LABEL maintainer="Jack Liu <jacknlliu@gmail.com>"
 
 # install ros related components
 RUN aptitude update -y && aptitude install -y -q -R ros-kinetic-gazebo-ros-control \

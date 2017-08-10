@@ -1,6 +1,6 @@
 FROM osrf/ubuntu_armhf:xenial
 
-MAINTAINER Jack Liu <jacknlliu@gmail.com>
+LABEL maintainer="Jack Liu <jacknlliu@gmail.com>"
 
 # setup environment
 ENV DEBIAN_FRONTEND noninteractive

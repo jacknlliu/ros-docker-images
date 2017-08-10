@@ -1,6 +1,6 @@
 FROM jacknlliu/ros:kinetic-extensions
 
-MAINTAINER Jack Liu jacknlliu@gmail.com
+LABEL maintainer="Jack Liu <jacknlliu@gmail.com>"
 
 RUN aptitude update -y && aptitude install -y -q -R qt5-default qtcreator qtdeclarative5-qtquick2-plugin
 
