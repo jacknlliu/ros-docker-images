@@ -80,11 +80,6 @@ RUN aptitude install -y -q -R  python-pip pylint clang libxss1 libnss3 libnotify
     && chmod a+x roboware_amd64.deb && dpkg -i roboware_amd64.deb \
     && rm -f roboware_amd64.deb
 
-# aptitude clean
-RUN aptitude clean -y -q \
-    && aptitude -o Aptitude::Delete-Unused=1 install -y -q \
-    && rm -rf /var/lib/apt/lists/*
-
 # copy supervisord.conf file
 COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
@@ -108,6 +103,15 @@ echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
 RUN mkdir -p /home/ros/.config/QtProject
 
 USER root
+
+# install ros python3 support
+RUN aptitude install -y -q -R python3-dev libyaml libyaml-dev libyaml-cpp libyaml-cpp-dev && pip3 install --upgrade pip && pip3 install catkin-tools rospkg
+
+# aptitude clean
+RUN aptitude clean -y -q \
+    && aptitude -o Aptitude::Delete-Unused=1 install -y -q \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 COPY ./QtCreator.ini  /home/ros/.config/QtProject/
 RUN chown -R ros:ros  /home/ros/.config/QtProject/
 
