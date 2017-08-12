@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM jacknlliu/ubuntu-init:14.04
 
 LABEL maintainer="Jack Liu <jacknlliu@gmail.com>"
 
@@ -102,7 +102,6 @@ USER ros
 # setup ros env
 RUN sudo rosdep init && rosdep update && \
 echo "export QT_X11_NO_MITSHM=1" >> /home/ros/.bashrc && \
-echo "export HOME=/home/ros" >> /home/ros/.bashrc && \
 echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
 
 # configure Qt
@@ -118,7 +117,8 @@ RUN mkdir -p /home/ros/.gazebo/models && chown -R ros:ros /home/ros/.gazebo
 # share this volume with other containers from this image
 VOLUME ["/home/ros/.gazebo/models"]
 
-USER ros
+WORKDIR /home/ros
 
 CMD ["bash"]
-ENTRYPOINT ["/ros_entrypoint.sh"]
+# must run /sbin/my_init with root user
+ENTRYPOINT ["/sbin/my_init", "--quiet", "--", "setuser", "ros", "/ros_entrypoint.sh"]
