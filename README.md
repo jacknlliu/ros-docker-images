@@ -66,7 +66,7 @@ Just scan the following QR code using [Alipay](https://play.google.com/store/app
 
 # TODO List
 - [x] add NVIDIA driver Installation instruction. ~~This work has been done, and it will move to release after some more polish.~~ Open An issue and a wiki page for tracking.
-- [ ] add nvidia driver installation tips in docker container startup.
+- [x] add nvidia driver installation tips in docker container startup.
 - [x] update ros indigo image
 - [ ] add robot grasping standalone image
 - [ ] update demo gif picture with robot grasping task. This is a long term item.
