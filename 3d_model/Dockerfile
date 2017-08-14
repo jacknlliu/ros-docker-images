@@ -16,10 +16,13 @@ COPY scripts/install_brd.py /opt/scripts/container/
 RUN chmod a+x /opt/scripts/container/install_brd.py
 
 USER ros
-RUN sudo -E -H blender -b /opt/scripts/container/install.blend --python /opt/scripts/container/install_brd.py
+RUN sudo -E blender -b --python /opt/scripts/container/install_brd.py \
+    && sudo chown -R ros:ros /home/ros/
+
 
 USER root
 # apt-get autoclean
 RUN apt-get autoclean -y \
 && apt-get autoremove -y \
-&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+&& rm -rf /root/.cache
