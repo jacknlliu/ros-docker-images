@@ -3,7 +3,7 @@ FROM jacknlliu/ros:kinetic-core
 LABEL maintainer="Jack Liu <jacknlliu@gmail.com>"
 
 RUN apt-get update -y && apt-get install -y curl bzip2 libfreetype6 \
-		libgl1-mesa-dev libglu1-mesa libxi6 libxrender1
+		libgl1-mesa-dev libglu1-mesa libxi6 libxrender1 module-init-tools
 
 # thanks to [ikester/blender-docker](https://github.com/ikester/blender-docker/tree/2.78c)
 ENV BLENDER_MAJOR 2.78

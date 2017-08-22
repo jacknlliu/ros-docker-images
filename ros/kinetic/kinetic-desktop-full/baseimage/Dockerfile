@@ -36,7 +36,7 @@ RUN aptitude install -y -q -R build-essential gdb \
     && aptitude install -y -q -R libgl1-mesa-glx libgl1-mesa-dri \
     \
 # install amd graphics open source driver
-    && aptitude install -y -q -R mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils
+    && aptitude install -y -q -R mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils module-init-tools
 
 # install RoboWare
 RUN aptitude install -y -q -R  wget python-pip pylint clang libxss1 libnss3 libnotify4 libxtst6 ~nlibgconf-2 \
