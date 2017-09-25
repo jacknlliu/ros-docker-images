@@ -32,6 +32,11 @@ RUN chmod a+x /home/ros/.config/blender/$BLENDER_MAJOR/config/userpref.blend && 
 # install meshlab
 RUN apt-get install -y -q --no-install-recommends meshlab
 
+# install freecad
+RUN apt-get install -y -q --no-install-recommends python-software-properties \
+    && add-apt-repository -y ppa:freecad-maintainers/freecad-stable \
+		&& apt-get update -y && apt-get install -y -q --no-install-recommends freecad freecad-doc
+
 # apt-get autoclean
 RUN apt-get autoclean -y \
     && apt-get autoremove -y \
