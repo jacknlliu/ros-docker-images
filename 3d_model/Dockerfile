@@ -29,6 +29,9 @@ COPY configs/userpref.blend /home/ros/.config/blender/$BLENDER_MAJOR/config/
 
 RUN chmod a+x /home/ros/.config/blender/$BLENDER_MAJOR/config/userpref.blend && chown -R ros:ros /home/ros
 
+# install meshlab
+RUN apt-get install -y -q --no-install-recommends meshlab
+
 # apt-get autoclean
 RUN apt-get autoclean -y \
     && apt-get autoremove -y \
