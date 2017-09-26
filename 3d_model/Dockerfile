@@ -7,7 +7,7 @@ RUN apt-get update -y && apt-get install -y curl bzip2 libfreetype6 \
 
 # thanks to [ikester/blender-docker](https://github.com/ikester/blender-docker/tree/2.78c)
 ENV BLENDER_MAJOR 2.78
-ENV BLENDER_VERSION 2.78c
+ENV BLENDER_VERSION 2.78
 ENV BLENDER_BZ2_URL http://mirror.cs.umn.edu/blender.org/release/Blender$BLENDER_MAJOR/blender-$BLENDER_VERSION-linux-glibc219-x86_64.tar.bz2
 
 RUN mkdir -p /opt/blender && \
@@ -24,18 +24,17 @@ RUN sudo /opt/blender/blender -b --python /opt/scripts/container/install_brd.py 
     && echo 'export PATH=$PATH:/opt/blender/' >> /home/ros/.bashrc
 
 USER root
-RUN rm -f /home/ros/.config/blender/$BLENDER_MAJOR/config/userpref.blend
-COPY configs/userpref.blend /home/ros/.config/blender/$BLENDER_MAJOR/config/
 
-RUN chmod a+x /home/ros/.config/blender/$BLENDER_MAJOR/config/userpref.blend && chown -R ros:ros /home/ros
+RUN  chown -R ros:ros /home/ros
 
 # install meshlab
 RUN apt-get install -y -q --no-install-recommends meshlab
 
 # install freecad
-RUN apt-get install -y -q --no-install-recommends python-software-properties \
+RUN apt-get install -y -q --no-install-recommends python-pip python-software-properties \
     && add-apt-repository -y ppa:freecad-maintainers/freecad-stable \
-		&& apt-get update -y && apt-get install -y -q --no-install-recommends freecad freecad-doc
+		&& apt-get update -y && apt-get install -y -q --no-install-recommends freecad freecad-doc \
+		&& pip2 install pycollada
 
 # apt-get autoclean
 RUN apt-get autoclean -y \

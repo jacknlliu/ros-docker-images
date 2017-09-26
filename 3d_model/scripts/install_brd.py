@@ -1,5 +1,3 @@
-#!/bin/python3
-
 import bpy
 import os
 import addon_utils
