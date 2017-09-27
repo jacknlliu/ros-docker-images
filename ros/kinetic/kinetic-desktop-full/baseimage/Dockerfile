@@ -1,4 +1,4 @@
-FROM phusion/baseimage:latest
+FROM jacknlliu/ubuntu-init:16.04
 
 LABEL maintainer="Jack Liu <jacknlliu@gmail.com>"
 
@@ -10,7 +10,7 @@ ENV LANG en_US.UTF-8
 # define ros distribution version
 ENV ROS_DISTRO kinetic
 
-RUN apt-get update -y && apt-get upgrade -y -q --no-install-recommends -o Dpkg::Options::="--force-confold"  \
+RUN apt-get update -y \
 && apt-get install -y -q --no-install-recommends apt-utils apt-transport-https aptitude locales && locale-gen en_US.UTF-8
 
 # setup sources.list
@@ -75,8 +75,9 @@ RUN aptitude install -y -q -R ros-kinetic-gazebo-ros-control \
     && aptitude install -y -q -R ros-kinetic-video-stream-opencv ros-kinetic-find-object-2d libcgal-dev  libcgal-qt5-dev
 
 # aptitude clean
-RUN aptitude clean -y -q \
-    && aptitude -o Aptitude::Delete-Unused=1 install -y -q \
+RUN apt-get autoclean \
+    && apt-get clean all \
+    && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* /var/tmp/*
 

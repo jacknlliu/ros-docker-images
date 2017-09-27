@@ -27,7 +27,8 @@ RUN aptitude update -y && aptitude install -y -q -R ros-kinetic-gazebo-ros-contr
     && aptitude install -y -q -R ros-kinetic-video-stream-opencv ros-kinetic-find-object-2d libcgal-dev  libcgal-qt5-dev
 
 # aptitude clean
-RUN aptitude clean -y -q \
-    && aptitude -o Aptitude::Delete-Unused=1 install -y -q \
+RUN apt-get autoclean \
+    && apt-get clean all \
+    && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* /var/tmp/*
