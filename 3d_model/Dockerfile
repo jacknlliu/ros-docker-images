@@ -6,8 +6,8 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends curl bzip2 l
 		libgl1-mesa-dev libglu1-mesa libxi6 libxrender1 module-init-tools
 
 # thanks to [ikester/blender-docker](https://github.com/ikester/blender-docker/tree/2.78c)
-ENV BLENDER_MAJOR 2.78
-ENV BLENDER_VERSION 2.78
+ENV BLENDER_MAJOR 2.79
+ENV BLENDER_VERSION 2.79
 ENV BLENDER_BZ2_URL http://mirror.cs.umn.edu/blender.org/release/Blender$BLENDER_MAJOR/blender-$BLENDER_VERSION-linux-glibc219-x86_64.tar.bz2
 
 RUN mkdir -p /opt/blender && \
