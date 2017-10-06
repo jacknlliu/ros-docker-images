@@ -5,7 +5,7 @@ LABEL maintainer="Jack Liu <jacknlliu@gmail.com>"
 # copy scripts file
 RUN mkdir -p /opt/scripts/container/ && chmod -R a+rx /opt/scripts/
 COPY ./scripts/*.sh /opt/scripts/container/
-RUN cd /opt/scripts/container && ./install_gazebo_vr.sh
+RUN chmod a+rwx -R /opt/scripts/container && sync && cd /opt/scripts/container && ./install_gazebo_vr.sh
 
 # aptitude clean
 RUN apt-get autoclean \
