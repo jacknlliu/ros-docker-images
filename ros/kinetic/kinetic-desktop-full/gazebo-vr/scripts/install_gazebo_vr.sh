@@ -1,6 +1,6 @@
 #/bin/bash
 
-apt-get install -y --no-install-recommends libusb-dev libudev-dev libxinerama-dev
+apt-get update -y && apt-get install -y --no-install-recommends libusb-dev libudev-dev libxinerama-dev
 cd /opt && hg clone https://bitbucket.org/osrf/oculussdk
 cd oculussdk
 mkdir build
