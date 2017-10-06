@@ -22,16 +22,18 @@ sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_rel
 wget http://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
 apt-get update -y
 
-wget https://bitbucket.org/osrf/release-tools/raw/default/jenkins-scripts/lib/dependencies_archive.sh -O /tmp/dependencies.sh
+mkdir -p /opt/gazebo_vr && chmod a+rwx -R /opt/gazebo_vr
 
-ROS_DISTRO=kinetic . /tmp/dependencies.sh
+wget https://bitbucket.org/osrf/release-tools/raw/default/jenkins-scripts/lib/dependencies_archive.sh -O /opt/gazebo_vr/dependencies.sh
+
+ROS_DISTRO=kinetic . /opt/gazebo_vr/dependencies.sh
 
 apt-get install -y --no-install-recommends $(sed 's:\\ ::g' <<< $BASE_DEPENDENCIES) $(sed 's:\\ ::g' <<< $GAZEBO_BASE_DEPENDENCIES)
 
 
 # build and install gazebo
-hg clone https://bitbucket.org/osrf/gazebo /tmp/gazebo
-cd /tmp/gazebo
+hg clone https://bitbucket.org/osrf/gazebo /opt/gazebo_vr/gazebo
+cd /opt/gazebo_vr/gazebo
 
 mkdir build
 cd build
