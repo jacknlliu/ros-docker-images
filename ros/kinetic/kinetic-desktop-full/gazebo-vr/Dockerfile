@@ -18,7 +18,7 @@ RUN apt-get update -y \
 RUN aptitude install -y -q -R build-essential gdb cmake \
     \
 # install IDE essential packages and qt5, qtcreator, qtdeclarative5-qtquick2
-    && aptitude install -y -q -R mesa-common-dev libglu1-mesa-dev xrandr-dev libfontconfig1 qt5-default qtcreator qtdeclarative5-qtquick2-plugin \
+    && aptitude install -y -q -R mesa-common-dev libglu1-mesa-dev libxrandr-dev libfontconfig1 qt5-default qtcreator qtdeclarative5-qtquick2-plugin \
     \
 # install intel graphics driver
     && aptitude install -y -q -R libgl1-mesa-glx libgl1-mesa-dri \
