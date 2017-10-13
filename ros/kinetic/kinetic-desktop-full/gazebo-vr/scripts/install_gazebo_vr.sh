@@ -1,17 +1,15 @@
 #!/bin/bash
 
-apt-get update -y && apt-get install -y --no-install-recommends mercurial  libusb-dev libudev-dev libxinerama-dev
+apt-get update -y && apt-get install -y --no-install-recommends wget mercurial  libusb-dev libudev-dev libxinerama-dev
 cd /opt && hg clone https://bitbucket.org/osrf/oculussdk
 cd oculussdk
-mkdir build
-cd build
+mkdir build && cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=/usr
 make
 make install
 cp ../LibOVR/90-oculus.rules /etc/udev/rules.d/
 # udevadm control --reload-rules
-
-rm -rf /opt/oculussdk/build
+cd /opt && rm -rf /opt/oculussdk/build
 
 
 # recompile gazebo
@@ -26,7 +24,7 @@ wget http://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
 
 apt-get update -y
 
-mkdir -p /opt/gazebo_vr && chmod a+rwx -R /opt/gazebo_vr
+mkdir -p /opt/gazebo_vr
 
 wget https://bitbucket.org/osrf/release-tools/raw/default/jenkins-scripts/lib/dependencies_archive.sh -O /opt/gazebo_vr/dependencies.sh
 
@@ -45,10 +43,11 @@ apt-get install -y --no-install-recommends libbullet-dev protobuf-compiler libig
 echo "start to build gazebo"
 
 # build and install gazebo
-hg clone https://bitbucket.org/jacknlliu/gazebo /opt/gazebo_vr/gazebo && cd /opt/gazebo_vr/gazebo && hg up gazebo7-fix-boost-compile-error
+hg clone https://bitbucket.org/jacknlliu/gazebo /opt/gazebo_vr/gazebo
 
-mkdir build
-cd build
+cd /opt/gazebo_vr/gazebo && hg up gazebo7-fix-boost-compile-error
+
+mkdir build  && cd build
 
 cmake ../
 
