@@ -16,7 +16,8 @@ cd /opt && rm -rf /opt/oculussdk/build
 
 # install dependencies. Should we remove previous packages from ros?
 # if we remove gazebo, then the ros-desktop-full will be removed, we cannot use ros!
-apt-get remove -y '.*gazebo.*' '.*sdformat.*' '.*ignition-math.*' '.*ignition-msgs.*' '.*ignition-transport.*'
+
+# apt-get remove -y '.*gazebo.*' '.*sdformat.*' '.*ignition-math.*' '.*ignition-msgs.*' '.*ignition-transport.*'
 
 echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list
 
@@ -49,7 +50,7 @@ cd /opt/gazebo_vr/gazebo && hg up gazebo7-fix-boost-compile-error
 
 mkdir build  && cd build
 
-cmake ../
+cmake ../ -DCMAKE_INSTALL_PREFIX=/usr
 
 make -j4
 
@@ -57,7 +58,8 @@ make install
 
 echo "start to make test"
 
-make tests
+# no need to build tests
+# make tests
 
 
 # clean
