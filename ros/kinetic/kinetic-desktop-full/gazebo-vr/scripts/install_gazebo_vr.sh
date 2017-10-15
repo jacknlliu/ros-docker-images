@@ -52,7 +52,8 @@ mkdir build  && cd build
 
 cmake ../ -DCMAKE_INSTALL_PREFIX=/usr
 
-make -j4
+# we should not use -jN to avoid error: g++: internal compiler error: Killed (program cc1plus), see https://github.com/docker/for-win/issues/403
+make -j2
 
 make install
 
