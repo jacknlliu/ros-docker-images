@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/usr/bin/env bash
 
 if [ -e "/dev/dri/card0" ]
 then

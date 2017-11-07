@@ -49,23 +49,26 @@ RUN aptitude install -y -q -R  wget python-pip pylint clang libxss1 libnss3 libn
 # install essential tools, ssh sever, sudo
 RUN aptitude install -y -q -R  bash-completion wget vim git iputils-ping iproute2 netcat terminator xauth openssh-server sudo pcmanfm
 
+
+# config sshd
+RUN mkdir -p /var/run/sshd && echo "X11UseLocalhost no" >> /etc/ssh/sshd_config \
+  &&  rm -f /etc/service/sshd/down  && /etc/my_init.d/00_regen_ssh_host_keys.sh \
+  && mkdir -p /opt/scripts/container/
+
+
+# copy entrypoint file
+COPY ./scripts/* /opt/scripts/container/
+RUN chmod a+rx -R /opt/scripts/ && cp /opt/scripts/container/containerinit.sh /etc/my_init.d/ && chmod a+rx /opt/scripts/container/ros_entrypoint.sh && chmod u+x /etc/my_init.d/containerinit.sh
+
+RUN /opt/scripts/container/quick-fix.sh
+
+
 # aptitude clean
 RUN apt-get autoclean \
     && apt-get clean all \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* /var/tmp/*
-
-
-# config sshd
-RUN mkdir -p /var/run/sshd && echo "X11UseLocalhost no" >> /etc/ssh/sshd_config \
-  &&  rm -f /etc/service/sshd/down  && /etc/my_init.d/00_regen_ssh_host_keys.sh \
-  && mkdir -p /opt/scripts/container/ && chmod -R a+rx /opt/scripts/
-
-# copy entrypoint file
-COPY ./scripts/ros_entrypoint.sh /opt/scripts/container/
-COPY ./scripts/containerinit.sh /etc/my_init.d/
-RUN chmod a+rx /opt/scripts/container/ros_entrypoint.sh && chmod +x /etc/my_init.d/containerinit.sh
 
 # set user ros and sudo
 RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros && \

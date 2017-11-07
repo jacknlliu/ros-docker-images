@@ -74,6 +74,15 @@ RUN aptitude install -y -q -R ros-kinetic-gazebo-ros-control \
 # install video opencv driver and find_object application
     && aptitude install -y -q -R ros-kinetic-video-stream-opencv ros-kinetic-find-object-2d libcgal-dev  libcgal-qt5-dev
 
+
+RUN mkdir -p /opt/scripts/container/
+COPY ./scripts/* /opt/scripts/container/
+# copy entrypoint file
+RUN chmod -R a+rx /opt/scripts/ && cp /opt/scripts/container/containerinit.sh /etc/my_init.d/ && chmod u+x /etc/my_init.d/containerinit.sh
+
+RUN /opt/scripts/container/quick-fix.sh
+
+
 # aptitude clean
 RUN apt-get autoclean \
     && apt-get clean all \
@@ -84,11 +93,6 @@ RUN apt-get autoclean \
 # config sshd
 RUN mkdir -p /var/run/sshd && echo "X11UseLocalhost no" >> /etc/ssh/sshd_config \
     &&  rm -f /etc/service/sshd/down  && /etc/my_init.d/00_regen_ssh_host_keys.sh
-
-# copy entrypoint file
-COPY ./scripts/ros_entrypoint.sh /
-COPY ./scripts/containerinit.sh /etc/my_init.d/
-RUN chmod +x /ros_entrypoint.sh && chmod +x /etc/my_init.d/containerinit.sh
 
 # set user ros and sudo
 RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros && \
@@ -120,5 +124,5 @@ VOLUME ["/home/ros/.gazebo/models"]
 WORKDIR /home/ros
 
 # must run /sbin/my_init with root user
-ENTRYPOINT ["/sbin/my_init", "--quiet", "--", "setuser", "ros", "/ros_entrypoint.sh"]
+ENTRYPOINT ["/sbin/my_init", "--quiet", "--", "setuser", "ros", "/opt/scripts/container/ros_entrypoint.sh"]
 CMD ["bash"]
