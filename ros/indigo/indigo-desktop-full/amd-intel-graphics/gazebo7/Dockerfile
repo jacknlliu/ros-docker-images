@@ -104,7 +104,7 @@ RUN mkdir -p /home/ros/.config/QtProject
 USER root
 
 # install ros python3 support
-RUN aptitude install -y -q -R python3-dev libyaml-dev libyaml-0-2  libyaml-cpp0.5 libyaml-cpp-dev && pip3 install --upgrade pip && pip3 install catkin-tools rospkg ws4py
+RUN aptitude install -y -q -R python3-dev libyaml-dev libyaml-0-2  libyaml-cpp0.5 libyaml-cpp-dev && pip3 install --upgrade pip && pip3 install catkin-tools rospkg ws4py transforms3d
 
 # aptitude clean
 RUN apt-get autoclean \

@@ -24,7 +24,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources
     ros-kinetic-rosbridge-library ros-kinetic-rosbridge-server ros-kinetic-rosbridge-suite
 
 # install ros python3 support
-RUN pip3 install --upgrade pip && pip3 install --no-cache-dir catkin-tools rospkg ws4py
+RUN pip3 install --upgrade pip && pip3 install --no-cache-dir catkin-tools rospkg ws4py transforms3d
 
 # install additional system packages and ros packages
 # install additional build tool
