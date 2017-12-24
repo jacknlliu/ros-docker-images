@@ -19,7 +19,8 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc
 # update the repository and install ros packages
     && apt-get update -y \
     && apt-get install -y -q --no-install-recommends apt-transport-https aptitude \
-    && aptitude install -y -q -R ros-indigo-desktop python-rosinstall ninja-build python3-pip python3-setuptools
+    && aptitude install -y -q -R ros-indigo-desktop python-rosinstall ninja-build python3-pip python3-setuptools python3-defusedxml \
+    ros-indigo-rosbridge-library ros-indigo-rosbridge-server ros-indigo-rosbridge-suite
 
 # install additional system packages and ros packages
 # update gazebo2.2 to gazebo7
@@ -103,7 +104,7 @@ RUN mkdir -p /home/ros/.config/QtProject
 USER root
 
 # install ros python3 support
-RUN aptitude install -y -q -R python3-dev libyaml-dev libyaml-0-2  libyaml-cpp0.5 libyaml-cpp-dev && pip3 install --upgrade pip && pip3 install catkin-tools rospkg
+RUN aptitude install -y -q -R python3-dev libyaml-dev libyaml-0-2  libyaml-cpp0.5 libyaml-cpp-dev && pip3 install --upgrade pip && pip3 install catkin-tools rospkg ws4py
 
 # aptitude clean
 RUN apt-get autoclean \
