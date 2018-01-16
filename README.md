@@ -25,6 +25,10 @@ $ docker pull jacknlliu/ros:kinetic-ide-init
 ```
 See it on [docker hub](https://hub.docker.com/r/jacknlliu/ros/).
 
+- set X access on your host for docker containers
+```
+$ xhost +
+```
 
 - Run
 ```shell
