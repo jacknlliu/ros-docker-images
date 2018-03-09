@@ -27,7 +27,9 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc
 RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/gazebo-latest.list \
     && curl http://packages.osrfoundation.org/gazebo.key |apt-key add - \
     && aptitude update -y -q \
-    && aptitude remove -y -q gazebo2
+    && aptitude remove -y -q gazebo2; aptitude install -y -q -R gazebo7
+
+RUN aptitude install -y -q -R  ros-indigo-gazebo7-ros-control ros-indigo-gazebo7-ros-pkgs
 
 # install essential tools
 RUN aptitude install -y -q -R  bash-completion wget vim git iputils-ping iproute2 netcat tmux terminator supervisor xauth openssh-server sudo pcmanfm \
@@ -69,11 +71,9 @@ RUN aptitude install -y -q -R ros-indigo-moveit-full \
 # install orocos rtt components
     && aptitude install -y -q -R ros-indigo-orocos-kdl ros-indigo-rtt ~nros-indigo-rtt-*
 
-RUN aptitude install -y -q -R  ros-indigo-gazebo7-ros-control ros-indigo-gazebo7-ros-pkgs
-
 # install RoboWare
 RUN aptitude install -y -q -R  wget python-pip pylint clang libxss1 libnss3 libnotify4 libxtst6 ~nlibgconf-2 \
-    && export ROBOWAREVERSION="1.0.2-1512004582"  \
+    && export ROBOWAREVERSION="1.1.0-1514335284"  \
     && wget https://github.com/tonyrobotics/RoboWare/raw/master/Studio/roboware-studio_${ROBOWAREVERSION}_amd64.deb -O roboware_amd64.deb \
     && chmod a+x roboware_amd64.deb && dpkg -i roboware_amd64.deb \
     && apt-get install -y --no-install-recommends -f \
@@ -90,7 +90,7 @@ RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros \
     && usermod -a -G dialout ros \
     && echo "ros ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_aptget
 
-# switch to user ros, but the HOME is still /, not /home/ros
+# switch to user ros, but the workdir is still /, not /home/ros
 USER ros
 
 # setup ros env
@@ -104,7 +104,10 @@ RUN mkdir -p /home/ros/.config/QtProject
 USER root
 
 # install ros python3 support
-RUN aptitude install -y -q -R python3-dev libyaml-dev libyaml-0-2  libyaml-cpp0.5 libyaml-cpp-dev && pip3 install --upgrade pip && pip3 install catkin-tools rospkg ws4py transforms3d
+RUN aptitude install -y -q -R python3-dev libyaml-dev libyaml-0-2  libyaml-cpp0.5 libyaml-cpp-dev && pip3 install --upgrade pip && pip3 install catkin-tools rospkg ws4py transforms3d trollius
+
+# install dependecies for ros genmsg
+RUN pip install empy
 
 # aptitude clean
 RUN apt-get autoclean \
@@ -124,6 +127,6 @@ VOLUME ["/home/ros/.gazebo/models"]
 
 WORKDIR /home/ros
 
-CMD ["bash"]
 # must run /sbin/my_init with root user
 ENTRYPOINT ["/sbin/my_init", "--quiet", "--", "setuser", "ros", "/ros_entrypoint.sh"]
+CMD ["bash"]

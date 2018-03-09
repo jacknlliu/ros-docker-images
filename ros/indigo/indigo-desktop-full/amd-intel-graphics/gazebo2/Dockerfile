@@ -72,7 +72,7 @@ RUN aptitude install -y -q -R ros-indigo-moveit-full \
 
 # install RoboWare
 RUN aptitude install -y -q -R  wget python-pip pylint clang libxss1 libnss3 libnotify4 libxtst6 ~nlibgconf-2 \
-    && export ROBOWAREVERSION="1.0.2-1512004582"  \
+    && export ROBOWAREVERSION="1.1.0-1514335284"  \
     && wget https://github.com/tonyrobotics/RoboWare/raw/master/Studio/roboware-studio_${ROBOWAREVERSION}_amd64.deb -O roboware_amd64.deb \
     && chmod a+x roboware_amd64.deb && dpkg -i roboware_amd64.deb \
     && apt-get install -y --no-install-recommends -f \
@@ -103,7 +103,10 @@ RUN mkdir -p /home/ros/.config/QtProject
 USER root
 
 # install ros python3 support
-RUN aptitude install -y -q -R python3-dev libyaml-dev libyaml-0-2  libyaml-cpp0.5 libyaml-cpp-dev && pip3 install --upgrade pip && pip3 install catkin-tools rospkg ws4py transforms3d
+RUN aptitude install -y -q -R python3-dev libyaml-dev libyaml-0-2  libyaml-cpp0.5 libyaml-cpp-dev && pip3 install --upgrade pip && pip3 install catkin-tools rospkg ws4py transforms3d trollius
+
+# install dependecies for ros genmsg
+RUN pip install empy
 
 # aptitude clean
 RUN apt-get autoclean \
