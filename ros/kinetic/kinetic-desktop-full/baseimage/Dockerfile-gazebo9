@@ -72,7 +72,7 @@ RUN aptitude install -y -q -R \
     ros-kinetic-pid  \
     \
 # install Barret_Hand related components
-    && aptitude install -y -q -R libignition-math2-dev libignition-common-dev ros-kinetic-barrett-hand ros-kinetic-barrett-hand-sim \
+    && aptitude install -y -q -R libignition-math2-dev libignition-common-dev ros-kinetic-barrett-hand \
     \
 # install force dimension device driver and related components
     && aptitude install -y -q -R libusb-1.0-0 libusb-1.0-0-dev freeglut3 freeglut3-dev \
