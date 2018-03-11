@@ -12,7 +12,7 @@ RUN aptitude update -y && aptitude install -y -q -R ros-kinetic-gazebo-ros-contr
     ros-kinetic-pid  \
     \
 # install Barret_Hand related components
-    && aptitude install -y -q -R libignition-math2-dev libignition-common-dev ros-kinetic-barrett-hand ros-kinetic-barrett-hand-sim \
+    && aptitude install -y -q -R libignition-math2-dev ros-kinetic-barrett-hand ros-kinetic-barrett-hand-sim \
     \
 # install force dimension device driver and related components
     && aptitude install -y -q -R libusb-1.0-0 freeglut3 freeglut3-dev \
