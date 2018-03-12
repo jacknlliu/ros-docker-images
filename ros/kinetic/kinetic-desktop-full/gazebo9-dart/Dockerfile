@@ -1,0 +1,16 @@
+FROM jacknlliu/ros:kinetic-gazebo9-ide
+
+LABEL maintainer="Jack Liu <jacknlliu@gmail.com>"
+USER root
+
+# copy scripts file
+RUN mkdir -p /opt/scripts/container/ && chmod -R a+rx /opt/scripts/
+COPY ./scripts/*.sh /opt/scripts/container/
+RUN chmod a+rwx -R /opt/scripts/container && sync && cd /opt/scripts/container && ./install_gazebo_dart.sh
+
+# aptitude clean
+RUN apt-get autoclean \
+    && apt-get clean all \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/* /var/tmp/*
