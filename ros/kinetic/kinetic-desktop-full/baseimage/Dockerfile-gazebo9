@@ -29,7 +29,7 @@ RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu xenial main" > /et
     && aptitude update -y -q \
     && aptitude remove -y -q gazebo7; aptitude install -y -q -R gazebo9
 
-RUN aptitude install -y -q -R  ros-kinetic-gazebo9-ros-control ros-kinetic-gazebo9-ros-pkgs
+RUN aptitude install -y -q -R  ros-kinetic-gazebo9-ros-control ros-kinetic-gazebo9-ros-pkgs ros-kinetic-tf2-geometry-msgs ros-kinetic-tf2-sensor-msgs
 
 # install ros python3 support
 RUN pip3 install --upgrade pip && pip3 install --no-cache-dir catkin-tools rospkg ws4py transforms3d trollius
