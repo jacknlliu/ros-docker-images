@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # using this script to install gazebo 9 with dart support from source codes
 
@@ -21,11 +21,12 @@ apt-get install -y --no-install-recommends libdart6-utils-urdf-dev libdart6-all-
 
 # apt-get remove -y '.*gazebo.*' '.*sdformat.*' '.*ignition-math.*' '.*ignition-msgs.*' '.*ignition-transport.*'
 
-echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list
-
-wget http://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
-
-apt-get update -y
+# we have done the following steps
+# echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable xenial main" > /etc/apt/sources.list.d/gazebo-stable.list
+#
+# wget http://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
+#
+# apt-get update -y
 
 mkdir -p /tmp/gazebo_dart
 
@@ -56,7 +57,7 @@ mkdir build  && cd build
 cmake ../ -DCMAKE_INSTALL_PREFIX=/usr
 
 # we should not use -jN to avoid error: g++: internal compiler error: Killed (program cc1plus), see https://github.com/docker/for-win/issues/403
-make -j2
+make
 
 make install
 
