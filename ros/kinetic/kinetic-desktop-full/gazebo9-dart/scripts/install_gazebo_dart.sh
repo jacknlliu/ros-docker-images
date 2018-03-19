@@ -21,15 +21,18 @@ apt-get install -y --no-install-recommends libdart6-utils-urdf-dev libdart6-all-
 
 # apt-get remove -y '.*gazebo.*' '.*sdformat.*' '.*ignition-math.*' '.*ignition-msgs.*' '.*ignition-transport.*'
 
-# we have done the following steps
-# echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable xenial main" > /etc/apt/sources.list.d/gazebo-stable.list
-#
-# wget http://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
-#
-# apt-get update -y
+if [[ ! -f "/etc/apt/sources.list.d/gazebo-stable.list" ]]; then
+  echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable xenial main" > /etc/apt/sources.list.d/gazebo-stable.list
 
+  wget http://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
+
+  apt-get update -y
+fi
+
+# create a workspace for gazebo
 mkdir -p /tmp/gazebo_dart
 
+# configure gazebo dependencies
 wget https://bitbucket.org/osrf/release-tools/raw/default/jenkins-scripts/lib/dependencies_archive.sh -O /tmp/gazebo_dart/dependencies.sh
 
 export DISTRO="xenial"
@@ -45,16 +48,16 @@ apt-get install -y --no-install-recommends $(sed 's:\\ ::g' <<< $BASE_DEPENDENCI
 # install some possible packages
 apt-get install -y --no-install-recommends sdf sdformat-sdf libtinyxml2-2v5 libtinyxml2-dev libopenal-dev
 
-echo "start to build gazebo"
-
 # build and install gazebo
 hg clone https://bitbucket.org/osrf/gazebo /tmp/gazebo_dart/gazebo
 
 cd /tmp/gazebo_dart/gazebo && hg up gazebo9
 
+echo "start to build gazebo"
+
 mkdir build  && cd build
 
-cmake ../ -DCMAKE_INSTALL_PREFIX=/usr
+cmake -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_TESTS_COMPILATION:BOOL=False ../
 
 # we should not use -jN to avoid error: g++: internal compiler error: Killed (program cc1plus), see https://github.com/docker/for-win/issues/403
 make
@@ -66,7 +69,3 @@ echo "Install gazebo done!"
 
 # clean
 rm -rf /tmp/gazebo_dart/
-
-# rm -rf /etc/apt/sources.list.d/gazebo-stable.list
-
-apt-get update -y
