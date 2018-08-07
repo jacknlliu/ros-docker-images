@@ -18,7 +18,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc
     \
 # update the repository and install ros packages
     && apt update -y \
-    && apt install -y -q --no-install-recommends apt-transport-https \
+    && apt install -y -q --no-install-recommends aptitude apt-transport-https \
     && apt install -y -q --no-install-recommends ros-indigo-desktop-full python-rosinstall ninja-build python3-pip python3-setuptools \
     ros-indigo-rosbridge-library ros-indigo-rosbridge-server ros-indigo-rosbridge-suite
 
@@ -36,19 +36,19 @@ RUN apt install -y -q --no-install-recommends  bash-completion wget vim git iput
     && apt install -y -q --no-install-recommends build-essential gdb \
     \
 # install IDE essential packages
-    && apt install -y -q --no-install-recommends mesa-common-dev libglu1-mesa-dev libfontconfig1 qt5-default qtcreator qtdeclarative5-qtquick2-plugin \
+    && aptitude install -y -q -R mesa-common-dev libglu1-mesa-dev libfontconfig1 qt5-default qtcreator qtdeclarative5-qtquick2-plugin \
     \
 # setup ssh
     && mkdir -p /var/run/sshd && echo "X11UseLocalhost no" >> /etc/ssh/sshd_config
 
 # install intel graphics driver
-RUN apt install -y -q --no-install-recommends libgl1-mesa-glx libgl1-mesa-dri \
+RUN aptitude install -y -q -R libgl1-mesa-glx libgl1-mesa-dri \
     \
 # install amd graphics open source driver
-    && apt install -y -q --no-install-recommends mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils module-init-tools \
+    && aptitude install -y -q -R mesa-vdpau-drivers xserver-xorg-video-ati mesa-utils module-init-tools \
     \
 # we should fix AMD graphics driver with image driver extension not found in ubuntu 14.04.2, refrence: https://wiki.ubuntu.com/Kernel/LTSEnablementStack#Ubuntu_14.04_LTS_-_Trusty_Tahr
-    && apt install -y -q --no-install-recommends linux-generic-lts-xenial xserver-xorg-core-lts-xenial xserver-xorg-lts-xenial xserver-xorg-video-all-lts-xenial xserver-xorg-input-all-lts-xenial libwayland-egl1-mesa-lts-xenial
+    && aptitude install -y -q -R linux-generic-lts-xenial xserver-xorg-core-lts-xenial xserver-xorg-lts-xenial xserver-xorg-video-all-lts-xenial xserver-xorg-input-all-lts-xenial libwayland-egl1-mesa-lts-xenial
 
 # install ros related components
 RUN apt install -y -q --no-install-recommends ros-indigo-moveit-full \
