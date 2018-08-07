@@ -11,13 +11,13 @@ RUN chmod a+rwx -R /opt/scripts/container && sync && cd /opt/scripts/container &
 
 # install pydart2
 RUN pip3 install numpy; pip3 install PyOpenGL PyOpenGL_accelerate; \
-    aptitude install -q -y -R swig python3-pyqt5 python3-pyqt5.qtopengl && \
+    apt install -y -q --no-install-recommends swig python3-pyqt5 python3-pyqt5.qtopengl && \
     pip3 install pydart2
 
 
-# aptitude clean
-RUN apt-get autoclean \
-    && apt-get clean all \
-    && apt-get autoremove -y \
+# apt clean
+RUN apt autoclean \
+    && apt clean all \
+    && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* /var/tmp/*
