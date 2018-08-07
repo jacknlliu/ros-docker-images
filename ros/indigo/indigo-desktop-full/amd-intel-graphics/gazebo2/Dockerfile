@@ -20,7 +20,9 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc
     && apt update -y \
     && apt install -y -q --no-install-recommends aptitude apt-transport-https \
     && apt install -y -q --no-install-recommends ros-indigo-desktop-full python-rosinstall ninja-build python3-pip python3-setuptools \
-    ros-indigo-rosbridge-library ros-indigo-rosbridge-server ros-indigo-rosbridge-suite
+    ros-indigo-rosbridge-library ros-indigo-rosbridge-server ros-indigo-rosbridge-suite \
+    ros-indigo-tf2-web-republisher \
+    ros-indigo-tf2-relay ros-indigo-tf2-geometry-msgs ros-indigo-tf2-sensor-msgs
 
 # install additional system packages and ros packages
 # update gazebo2.2 to gazebo2.2.5
@@ -107,6 +109,12 @@ RUN apt install -y -q --no-install-recommends python3-dev libyaml-dev libyaml-0-
 
 # install dependecies for ros genmsg
 RUN pip install empy
+
+# install other tools
+RUN  pip3 install pendulum; pip2 install pendulum \
+    \
+     # install roslibpy for ROS Bridge
+    && pip3 install numpy roslibpy; pip2 install numpy roslibpy
 
 # apt clean
 RUN apt autoclean \
