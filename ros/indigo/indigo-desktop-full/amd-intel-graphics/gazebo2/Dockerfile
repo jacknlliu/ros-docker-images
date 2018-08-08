@@ -33,7 +33,7 @@ RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu $(lsb_release -sc)
 
 # install essential tools
 RUN apt install -y -q --no-install-recommends  bash-completion wget vim git iputils-ping iproute2 netcat tmux terminator supervisor xauth openssh-server sudo pcmanfm \
-    \
+    doxygen doxygen-gui \
 # install additional build tool
     && apt install -y -q --no-install-recommends build-essential gdb \
     \
