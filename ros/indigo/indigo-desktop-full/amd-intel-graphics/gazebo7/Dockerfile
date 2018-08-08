@@ -22,7 +22,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc
     && apt install -y -q --no-install-recommends ros-indigo-desktop python-rosinstall ninja-build python3-pip python3-setuptools \
     ros-indigo-rosbridge-library ros-indigo-rosbridge-server ros-indigo-rosbridge-suite \
     ros-indigo-tf2-web-republisher \
-    ros-indigo-tf2-relay ros-indigo-tf2-geometry-msgs ros-indigo-tf2-sensor-msgs
+    ros-indigo-tf2-geometry-msgs ros-indigo-tf2-sensor-msgs
 
 # install additional system packages and ros packages
 # update gazebo2.2 to gazebo7
