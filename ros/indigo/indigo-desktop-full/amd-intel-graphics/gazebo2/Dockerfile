@@ -73,7 +73,7 @@ RUN apt install -y -q --no-install-recommends ros-indigo-moveit-full \
     && apt install -y -q --no-install-recommends ros-indigo-orocos-kdl ros-indigo-rtt ros-indigo-rtt-* \
     \
 # install multiplot
-    && apt install -y -q --no-install-recommends libqwt-dev ros-indigo-rqt-multiplot
+    && apt install -y -q --no-install-recommends python3-matplotlib python-matplotlib libqwt-dev ros-indigo-rqt-multiplot
 
 
 # install RoboWare
@@ -115,10 +115,10 @@ RUN apt install -y -q --no-install-recommends python3-dev libyaml-dev libyaml-0-
 RUN pip install empy
 
 # install other tools
-RUN  pip3 install pendulum; pip2 install pendulum \
+RUN pip3 install --upgrade --ignore-installed six; pip2 install --upgrade --ignore-installed six \
+    && pip3 install pendulum; pip2 install pendulum \
     \
      # install roslibpy for ROS Bridge
-    && pip3 install --upgrade --ignore-installed six; pip2 install --upgrade --ignore-installed six \
     && pip3 install numpy roslibpy; pip2 install numpy roslibpy
 
 # apt clean
