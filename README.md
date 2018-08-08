@@ -56,6 +56,7 @@ $ docker start ros_kinetic
 - Troubleshooting with NVIDIA video card  
   If you use NVIDIA video card, you should follow this [instruction](https://github.com/jacknlliu/ros-docker-images/wiki).
 
+- Run ros docker images on multiple hosts, please refer to [robot-manipulation-cluster](https://github.com/jacknlliu/robot-manipulation-cluster).
 
 # Pay What You Want
 
@@ -90,7 +91,7 @@ Just scan the following QR code using [Alipay](https://play.google.com/store/app
 # Reference
 - [OSRF Docker Images](https://github.com/osrf/docker_images)
 - [PX4 Docker Containers](https://dev.px4.io/en/test_and_ci/docker.html)
-
+- [robot-manipulation-cluster](https://github.com/jacknlliu/robot-manipulation-cluster)
 
 # LICENSE
 This project is distributed under [MIT License](https://en.wikipedia.org/wiki/MIT_License).
