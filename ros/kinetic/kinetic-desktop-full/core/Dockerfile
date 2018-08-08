@@ -37,7 +37,8 @@ RUN pip install empy
 RUN  pip3 install pendulum; pip2 install pendulum \
     \
      # install roslibpy for ROS Bridge
-    && pip3 install numpy roslibpy; pip2 install numpy roslibpy
+    && pip3 install numpy roslibpy; pip2 install numpy roslibpy \
+    && pip3 install scipy pandas; pip2 install scipy pandas
 
 # install additional system packages and ros packages
 # install additional build tool
