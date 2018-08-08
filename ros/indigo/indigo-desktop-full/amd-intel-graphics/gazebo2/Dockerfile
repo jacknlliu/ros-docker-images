@@ -118,6 +118,7 @@ RUN pip install empy
 RUN  pip3 install pendulum; pip2 install pendulum \
     \
      # install roslibpy for ROS Bridge
+    && pip3 install --upgrade --ignore-installed six; pip2 install --upgrade --ignore-installed six \
     && pip3 install numpy roslibpy; pip2 install numpy roslibpy
 
 # apt clean
