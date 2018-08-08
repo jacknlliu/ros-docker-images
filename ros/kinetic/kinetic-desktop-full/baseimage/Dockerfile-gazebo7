@@ -20,7 +20,9 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources
     && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116  \
     \
 # update the repository and install ros kinetic
-    && apt update -y -q && apt install -y -q --no-install-recommends ros-kinetic-desktop-full python-rosinstall ninja-build python3-pip python3-setuptools python3-defusedxml python3-dev \
+    && apt update -y -q && apt install -y -q --no-install-recommends ros-kinetic-desktop-full \
+    python-rosinstall python-rosinstall-generator ninja-build python3-pip python3-setuptools \
+    python3-defusedxml python3-dev \
     ros-kinetic-rosbridge-library ros-kinetic-rosbridge-server ros-kinetic-rosbridge-suite \
     ros-kinetic-tf2-web-republisher \
     ros-kinetic-tf2-relay ros-kinetic-tf2-geometry-msgs ros-kinetic-tf2-sensor-msgs
@@ -30,8 +32,6 @@ RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu xenial main" > /et
     && curl http://packages.osrfoundation.org/gazebo.key |apt-key add - \
     && apt update -y -q \
     && apt upgrade -y -q --no-install-recommends gazebo7
-
-RUN apt install -y -q --no-install-recommends ros-kinetic-tf2-geometry-msgs ros-kinetic-tf2-sensor-msgs
 
 # install ros python3 support
 RUN pip3 install --upgrade pip && pip3 install --no-cache-dir catkin-tools rospkg ws4py transforms3d trollius
@@ -78,6 +78,9 @@ RUN apt install -y -q --no-install-recommends ros-kinetic-gazebo-ros-control \
     ros-kinetic-orocos-kinematics-dynamics \
     ros-kinetic-pid  \
     \
+    # install orocos rtt components
+    && apt install -y -q --no-install-recommends ros-kinetic-rtt ros-kinetic-rtt-* \
+    \
 # install Barret_Hand related components
     && apt install -y -q --no-install-recommends libignition-math2-dev ros-kinetic-barrett-hand ros-kinetic-barrett-hand-sim \
     \
@@ -91,7 +94,10 @@ RUN apt install -y -q --no-install-recommends ros-kinetic-gazebo-ros-control \
     && apt install -y -q --no-install-recommends ros-kinetic-katana-moveit-ikfast-plugin  ros-kinetic-trac-ik-lib ros-kinetic-trac-ik-kinematics-plugin \
     \
 # install video opencv driver and find_object application
-    && apt install -y -q --no-install-recommends ros-kinetic-video-stream-opencv ros-kinetic-find-object-2d libcgal-dev  libcgal-qt5-dev
+    && apt install -y -q --no-install-recommends ros-kinetic-video-stream-opencv ros-kinetic-find-object-2d libcgal-dev  libcgal-qt5-dev \
+    \
+# install multiplot
+    && apt install -y -q --no-install-recommends libqwt-dev libqwt-qt5-dev ros-kinetic-rqt-multiplot
 
 
 RUN mkdir -p /opt/scripts/container/

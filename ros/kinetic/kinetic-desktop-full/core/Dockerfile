@@ -20,7 +20,9 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources
     && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116  \
     \
 # update the repository and install ros kinetic
-    && apt update -y -q && apt install -y -q --no-install-recommends ros-kinetic-desktop-full python-rosinstall ninja-build python3-pip python3-setuptools python3-defusedxml python3-dev \
+    && apt update -y -q && apt install -y -q --no-install-recommends ros-kinetic-desktop-full \
+    python-rosinstall python-rosinstall-generator ninja-build python3-pip python3-setuptools \
+    python3-defusedxml python3-dev \
     ros-kinetic-rosbridge-library ros-kinetic-rosbridge-server ros-kinetic-rosbridge-suite \
     ros-kinetic-tf2-web-republisher \
     ros-kinetic-tf2-relay ros-kinetic-tf2-geometry-msgs ros-kinetic-tf2-sensor-msgs

@@ -11,6 +11,9 @@ RUN apt update -y && apt install -y -q --no-install-recommends ros-kinetic-gazeb
     ros-kinetic-orocos-kinematics-dynamics \
     ros-kinetic-pid  \
     \
+    # install orocos rtt components
+    && apt install -y -q --no-install-recommends ros-kinetic-rtt ros-kinetic-rtt-* \
+    \
 # install Barret_Hand related components
     && apt install -y -q --no-install-recommends libignition-math2-dev ros-kinetic-barrett-hand ros-kinetic-barrett-hand-sim \
     \
@@ -24,7 +27,11 @@ RUN apt update -y && apt install -y -q --no-install-recommends ros-kinetic-gazeb
     && apt install -y -q --no-install-recommends ros-kinetic-katana-moveit-ikfast-plugin  ros-kinetic-trac-ik-lib ros-kinetic-trac-ik-kinematics-plugin \
     \
 # install video opencv driver and find_object application
-    && apt install -y -q --no-install-recommends ros-kinetic-video-stream-opencv ros-kinetic-find-object-2d libcgal-dev  libcgal-qt5-dev
+    && apt install -y -q --no-install-recommends ros-kinetic-video-stream-opencv ros-kinetic-find-object-2d libcgal-dev  libcgal-qt5-dev \
+    \
+# install multiplot
+    && apt install -y -q --no-install-recommends libqwt-dev libqwt-qt5-dev ros-kinetic-rqt-multiplot
+
 
 # apt clean
 RUN apt autoclean \
