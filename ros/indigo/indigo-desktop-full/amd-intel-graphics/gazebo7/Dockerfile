@@ -81,8 +81,8 @@ RUN apt install -y -q --no-install-recommends ros-indigo-moveit-full \
 RUN apt install -y -q --no-install-recommends wget python-pip pylint clang libxss1 libxtst6 \
     && export ROBOWAREVERSION="1.2.0-1524709819"  \
     && wget https://github.com/tonyrobotics/RoboWare/raw/master/Studio/roboware-studio_${ROBOWAREVERSION}_amd64.deb -O roboware_amd64.deb \
-    && chmod a+x roboware_amd64.deb && apt install -y -q --no-install-recommends ./roboware_amd64.deb \
-    && apt install -y -q --no-install-recommends -f \
+    && chmod a+x roboware_amd64.deb && dpkg --force-depends -i ./roboware_amd64.deb \
+    && apt-get install -y -q --no-install-recommends -f \
     && rm -f roboware_amd64.deb
 
 # copy supervisord.conf file
