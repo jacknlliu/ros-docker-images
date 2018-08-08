@@ -73,7 +73,7 @@ RUN apt install -y -q --no-install-recommends ros-indigo-moveit-full \
     && apt install -y -q --no-install-recommends ros-indigo-orocos-kdl ros-indigo-rtt ros-indigo-rtt-* \
     \
 # install multiplot
-    && apt install -y -q --no-install-recommends libqwt-dev libqwt5-qt4-dev ros-indigo-rqt-multiplot
+    && apt install -y -q --no-install-recommends libqwt-dev ros-indigo-rqt-multiplot
 
 
 # install RoboWare
