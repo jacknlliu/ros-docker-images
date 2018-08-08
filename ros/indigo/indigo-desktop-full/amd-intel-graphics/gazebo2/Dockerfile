@@ -122,9 +122,9 @@ RUN pip3 install --upgrade --ignore-installed six; pip2 install --upgrade --igno
     && pip3 install numpy roslibpy; pip2 install numpy roslibpy
 
 # apt clean
-RUN apt autoclean \
-    && apt clean all \
-    && apt autoremove -y \
+RUN apt-get autoclean \
+    && apt-get clean all \
+    && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* /var/tmp/*
 
