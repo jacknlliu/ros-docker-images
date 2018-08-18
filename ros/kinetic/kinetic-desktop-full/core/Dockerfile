@@ -38,7 +38,7 @@ RUN  pip3 install pendulum; pip2 install pendulum \
     \
      # install roslibpy for ROS Bridge
     && pip3 install numpy roslibpy; pip2 install numpy roslibpy \
-    && pip3 install scipy pandas; pip2 install scipy pandas; \
+    && pip3 install scipy pandas pyquaternion; pip2 install scipy pandas pyquaternion; \
     pip3 install tldr.py
 
 # install additional system packages and ros packages
