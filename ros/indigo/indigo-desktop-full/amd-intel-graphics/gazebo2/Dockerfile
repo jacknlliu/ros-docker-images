@@ -32,8 +32,9 @@ RUN echo "deb http://packages.osrfoundation.org/gazebo/ubuntu $(lsb_release -sc)
     && apt upgrade -y -q --no-install-recommends gazebo2
 
 # install essential tools
-RUN apt install -y -q --no-install-recommends  bash-completion wget vim git iputils-ping iproute2 netcat tmux terminator supervisor xauth openssh-server sudo pcmanfm \
-    doxygen doxygen-gui \
+RUN apt install -y -q --no-install-recommends  bash-completion \
+    wget vim git iputils-ping iproute2 netcat tmux terminator supervisor xauth openssh-server sudo pcmanfm \
+    tree ranger curl ca-certificates openssl doxygen doxygen-gui \
 # install additional build tool
     && apt install -y -q --no-install-recommends build-essential gdb \
     \
@@ -91,20 +92,27 @@ COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ./ros_entrypoint.sh /
 
 # set user ros and sudo
-RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros \
-    && usermod -a -G dialout ros \
-    && echo "ros ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_aptget
+ENV DOCKER_USER ros
+RUN adduser --gecos "ROS User" --home /home/$DOCKER_USER --disabled-password $DOCKER_USER && \
+    usermod -a -G dialout $DOCKER_USER && \
+    echo "$DOCKER_USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_aptget
 
-# switch to user ros, but the workdir is still /, not /home/ros
-USER ros
+# switch to user ros, and $HOME is /home/ros, but workdir is still at /
+USER $DOCKER_USER
 
 # setup ros env
-RUN sudo rosdep init && rosdep update && \
-echo "export QT_X11_NO_MITSHM=1" >> /home/ros/.bashrc && \
-echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
+RUN sudo rosdep init && rosdep update  \
+    && echo "export QT_X11_NO_MITSHM=1" >> $HOME/.bashrc \
+    && echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> $HOME/.bashrc
 
 # configure Qt
-RUN mkdir -p /home/ros/.config/QtProject
+RUN mkdir -p $HOME/.config/QtProject
+
+# install urdf-rviz
+RUN cd $HOME && curl https://sh.rustup.rs -sSf > rustup.sh && chmod a+x rustup.sh \
+    && ./rustup.sh -y && rm -f ./rustup.sh \
+    && echo "source $HOME/.cargo/env" >> $HOME/.bashrc \
+    && source $HOME/.cargo/env && cargo install -f urdf-viz
 
 USER root
 
@@ -120,7 +128,8 @@ RUN pip3 install --upgrade --ignore-installed six; pip2 install --upgrade --igno
     \
      # install roslibpy for ROS Bridge
     && pip3 install numpy roslibpy; pip2 install numpy roslibpy \
-    && pip3 install scipy pandas; pip2 install scipy pandas
+    && pip3 install scipy pandas; pip2 install scipy pandas; \
+       pip3 install tldr.py
 
 # apt clean
 RUN apt-get autoclean \
@@ -129,17 +138,19 @@ RUN apt-get autoclean \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* /var/tmp/*
 
-COPY ./QtCreator.ini  /home/ros/.config/QtProject/
-RUN chown -R ros:ros  /home/ros/.config/QtProject/
+
+COPY ./config/QtCreator.ini  /home/$DOCKER_USER/.config/QtProject/
+RUN chown -R $DOCKER_USER:$DOCKER_USER  /home/$DOCKER_USER/.config/QtProject/
 
 # config gazebo volume
-RUN mkdir -p /home/ros/.gazebo/models && chown -R ros:ros /home/ros/.gazebo
+RUN mkdir -p /home/$DOCKER_USER/.gazebo/models && chown -R $DOCKER_USER:$DOCKER_USER /home/$DOCKER_USER/.gazebo
 
-# share this volume with other containers from this image
-VOLUME ["/home/ros/.gazebo/models"]
+# share this volume with other containers from this image. VOLUME allow use shell environment variable like ${}
+VOLUME ["/home/$DOCKER_USER/.gazebo/models"]
 
-WORKDIR /home/ros
+# cd /home/ros default
+WORKDIR /home/$DOCKER_USER
 
 # must run /sbin/my_init with root user
-ENTRYPOINT ["/sbin/my_init", "--quiet", "--", "setuser", "ros", "/ros_entrypoint.sh"]
+ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]

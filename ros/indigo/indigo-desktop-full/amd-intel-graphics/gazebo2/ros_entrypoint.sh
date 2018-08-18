@@ -5,7 +5,7 @@ set -e
 source "/opt/ros/$ROS_DISTRO/setup.bash"
 
 # start supervisor
-sudo /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
 
 # start CMD
-exec "$@"
+/sbin/my_init --quiet -- setuser ${DOCKER_USER} "$@"

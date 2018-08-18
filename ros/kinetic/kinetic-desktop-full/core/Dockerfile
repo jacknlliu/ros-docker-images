@@ -38,7 +38,8 @@ RUN  pip3 install pendulum; pip2 install pendulum \
     \
      # install roslibpy for ROS Bridge
     && pip3 install numpy roslibpy; pip2 install numpy roslibpy \
-    && pip3 install scipy pandas; pip2 install scipy pandas
+    && pip3 install scipy pandas; pip2 install scipy pandas; \
+    pip3 install tldr.py
 
 # install additional system packages and ros packages
 # install additional build tool
@@ -62,7 +63,9 @@ RUN apt install -y -q --no-install-recommends wget python-pip pylint clang libxs
     && rm -f roboware_amd64.deb
 
 # install essential tools, ssh sever, sudo
-RUN apt update -y -q && apt install -y -q --no-install-recommends bash-completion wget vim git iputils-ping iproute2 netcat tmux terminator xauth openssh-server sudo pcmanfm
+RUN apt update -y -q && apt install -y -q --no-install-recommends bash-completion \
+    wget vim git iputils-ping iproute2 netcat tmux terminator xauth openssh-server sudo pcmanfm \
+    tree ranger curl ca-certificates openssl
 
 
 # config sshd
@@ -77,6 +80,26 @@ RUN chmod a+rx -R /opt/scripts/ && cp /opt/scripts/container/containerinit.sh /e
 
 RUN /opt/scripts/container/quick-fix.sh
 
+# set user ros and sudo
+ENV DOCKER_USER ros
+RUN adduser --gecos "ROS User" --home /home/$DOCKER_USER --disabled-password $DOCKER_USER && \
+    usermod -a -G dialout $DOCKER_USER && \
+    echo "$DOCKER_USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_aptget
+
+# switch to user ros, and $HOME is /home/ros, but workdir is still at /
+USER $DOCKER_USER
+
+# setup ros env
+RUN sudo rosdep init && rosdep update  \
+    && echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> $HOME/.bashrc
+
+# install urdf-rviz
+RUN cd $HOME && curl https://sh.rustup.rs -sSf > rustup.sh && chmod a+x rustup.sh \
+    && ./rustup.sh -y && rm -f ./rustup.sh \
+    && echo "source $HOME/.cargo/env" >> $HOME/.bashrc \
+    && source $HOME/.cargo/env && cargo install -f urdf-viz
+
+USER root
 
 # apt clean
 RUN apt autoclean \
@@ -85,29 +108,15 @@ RUN apt autoclean \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/* /var/tmp/*
 
-# set user ros and sudo
-RUN adduser --gecos "ROS User" --home /home/ros --disabled-password ros && \
-  usermod -a -G dialout ros && \
-  echo "ros ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99_aptget
-
-# switch to user ros, but the HOME is still /, not /home/ros
-USER ros
-
-# setup ros env
-RUN sudo rosdep init && rosdep update  \
-  && echo "source "/opt/ros/$ROS_DISTRO/setup.bash"" >> /home/ros/.bashrc
-
-USER root
-
 # config gazebo volume
-RUN mkdir -p /home/ros/.gazebo/models && chown -R ros:ros /home/ros/.gazebo
+RUN mkdir -p /home/$DOCKER_USER/.gazebo/models && chown -R $DOCKER_USER:$DOCKER_USER /home/$DOCKER_USER/.gazebo
 
-# share this volume with other containers from this image
-VOLUME ["/home/ros/.gazebo/models"]
+# share this volume with other containers from this image. VOLUME allow use shell environment variable like ${}
+VOLUME ["/home/$DOCKER_USER/.gazebo/models"]
 
 # cd /home/ros default
-WORKDIR /home/ros
+WORKDIR /home/$DOCKER_USER
 
-# must run /sbin/my_init with root user. So we shouldn't switch to normal user when use docker exec -it ...
-ENTRYPOINT ["/sbin/my_init", "--quiet", "--", "setuser", "ros", "/opt/scripts/container/ros_entrypoint.sh"]
+# must run /sbin/my_init with root user
+ENTRYPOINT ["/opt/scripts/container/ros_entrypoint.sh"]
 CMD ["bash"]
