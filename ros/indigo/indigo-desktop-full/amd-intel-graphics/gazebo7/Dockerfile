@@ -140,7 +140,7 @@ RUN apt-get autoclean \
     && rm -rf /tmp/* /var/tmp/*
 
 
-COPY ./config/QtCreator.ini  /home/$DOCKER_USER/.config/QtProject/
+COPY ./QtCreator.ini  /home/$DOCKER_USER/.config/QtProject/
 RUN chown -R $DOCKER_USER:$DOCKER_USER  /home/$DOCKER_USER/.config/QtProject/
 
 # config gazebo volume
