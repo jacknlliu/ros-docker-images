@@ -89,7 +89,7 @@ RUN apt install -y -q --no-install-recommends \
     && apt install -y -q --no-install-recommends ros-kinetic-rtt ros-kinetic-rtt-* \
     \
 # install Barret_Hand related components
-    && apt install -y -q --no-install-recommends libignition-math2-dev ros-kinetic-barrett-hand \
+    && apt install -y -q --no-install-recommends ros-kinetic-barrett-hand \
     \
 # install force dimension device driver and related components
     && apt install -y -q --no-install-recommends libusb-1.0-0 libusb-1.0-0-dev freeglut3 freeglut3-dev \
