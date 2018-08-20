@@ -105,6 +105,8 @@ RUN apt install -y -q --no-install-recommends \
 # install multiplot
     && apt install -y -q --no-install-recommends libqwt-dev libqwt-qt5-dev ros-kinetic-rqt-multiplot
 
+# install system dependencies for urdf-viz
+RUN apt install -y -q --no-install-recommends cmake xorg-dev libglu1-mesa-dev
 
 RUN mkdir -p /opt/scripts/container/
 COPY ./scripts/* /opt/scripts/container/
