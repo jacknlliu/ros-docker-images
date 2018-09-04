@@ -69,6 +69,7 @@ $ docker start ros_kinetic
 - [OSRF Docker Images](https://github.com/osrf/docker_images)
 - [PX4 Docker Containers](https://dev.px4.io/en/test_and_ci/docker.html)
 - [docker GUI tutorial - ROS wiki](http://wiki.ros.org/docker/Tutorials/GUI)
+- [x11docker](https://github.com/mviereck/x11docker)
 - [robot-manipulation-cluster](https://github.com/jacknlliu/robot-manipulation-cluster)
 
 # LICENSE
