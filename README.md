@@ -14,6 +14,7 @@ This project aims to build an All-in-One development environment for robot learn
 - support `gazebo` simulation
 - including `QtCreator` and [RoboWare](http://wiki.ros.org/IDEs#RoboWare_Studio) as ROS IDE which supports build and **debug** your ROS packages
 - including [terminator](http://gnometerminator.blogspot.com/p/introduction.html), a multi-windows supported free terminal emulator
+- including [ranger](https://github.com/ranger/ranger) -  a console file manager with VI key bindings
 - including [ros-desktop-full](http://wiki.ros.org/kinetic/Installation/Ubuntu) packages, currently support `indigo` and `kinetic` version
 - including a light weight file manager GUI application [pcmanfm](http://pcmanfm.sourceforge.net/)
 
