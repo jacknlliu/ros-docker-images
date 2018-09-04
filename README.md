@@ -58,30 +58,6 @@ $ docker start ros_kinetic
 
 - Run ros docker images on multiple hosts, please refer to [robot-manipulation-cluster](https://github.com/jacknlliu/robot-manipulation-cluster).
 
-# Pay What You Want
-
-If this project really help you, you can pay for it.
-
-Just scan the following QR code using [Alipay](https://play.google.com/store/apps/details?id=com.eg.android.AlipayGphone&hl=en) mobile application, and **any amount will be OK**.
-
-![AlipayQRCode](https://raw.githubusercontent.com/jacknlliu/ros-docker-images/master/resources/AlipayQRCode_256x256.jpg)
-
-***enjoy it!***
-
-
-# TODO List
-- [x] add NVIDIA driver Installation instruction. ~~This work has been done, and it will move to release after some more polish.~~ Open An issue and a wiki page for tracking.
-- [x] add nvidia driver installation tips in docker container startup.
-- [x] update ros indigo image
-- [ ] add robot grasping standalone image
-- [ ] update demo gif picture with robot grasping task. This is a long term item.
-- [ ] add Chinese document
-- [x] add RoboWare IDE
-- [x] ~~add reinforcement learning libraries, including rllab. For machine learning part, it will be another standalone image, and it will be a module network application with ROS middleware.~~ A standalone image integrated tensorflow, opeai/roboschool, and ros base, see [here](https://hub.docker.com/r/jacknlliu/tensorflow-openai-ros/). Cheer!
-- [x] ~~add machine learning libraries~~
-- [x] ~~add deep learning, including tensorflow~~
-- [ ] add mobile robot standalone image for robot SLAM and robot vision research
-
 
 # Known Issues and Limitations
 - It's a little large image.
@@ -91,6 +67,7 @@ Just scan the following QR code using [Alipay](https://play.google.com/store/app
 # Reference
 - [OSRF Docker Images](https://github.com/osrf/docker_images)
 - [PX4 Docker Containers](https://dev.px4.io/en/test_and_ci/docker.html)
+- [docker GUI tutorial - ROS wiki](http://wiki.ros.org/docker/Tutorials/GUI)
 - [robot-manipulation-cluster](https://github.com/jacknlliu/robot-manipulation-cluster)
 
 # LICENSE
