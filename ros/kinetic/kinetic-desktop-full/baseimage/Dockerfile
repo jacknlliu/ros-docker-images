@@ -13,6 +13,8 @@ ENV ROS_DISTRO kinetic
 RUN apt update -y \
 && apt install -y -q --no-install-recommends apt-utils apt-transport-https locales && locale-gen en_US.UTF-8
 
+RUN apt install -y -q --no-install-recommends python-pip && apt-get --auto-remove --yes remove python-openssl && pip2 install -U pyOpenSSL
+
 # setup sources.list
 RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources.list.d/ros-latest.list  \
     \
@@ -31,7 +33,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources
 RUN pip3 install --upgrade pip && pip3 install --no-cache-dir catkin-tools rospkg ws4py transforms3d trollius
 
 # install dependecies for ros genmsg
-RUN pip install empy
+RUN pip2 install empy
 
 # install other tools
 RUN  pip3 install pendulum; pip2 install pendulum \
